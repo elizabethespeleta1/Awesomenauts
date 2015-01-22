@@ -26,7 +26,7 @@ game.resources = [
  	 * This lets the map get loaded
  	 */
 
- 	 {name: "level01", type: "tmx", src: "data/map/test01.tmx"},
+ 	 {name: "level01", type: "tmx", src: "data/map/test.tmx"}
 
 	/* Background music. 
 	 * @example
