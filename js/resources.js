@@ -6,10 +6,11 @@ game.resources = [
 	 */
 
 	/*
-	* This allows us to use the tile sets
+	* This allows us to use the tile sets or images
 	*/
 	{name: "background-tiles", type:"image", src: "data/img/background-tiles.png"},
 	{name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
+	{name: "player", type:"image", src: "data/img/orcSpear.png"},
 
 	/* Atlases 
 	 * @example
