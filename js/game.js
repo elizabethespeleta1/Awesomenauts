@@ -39,6 +39,9 @@ var game = {
 
 	// Run on game resources loaded.
 	"loaded" : function () {
+		//registering the player
+		//connecting to playerEntity class
+		//true means you can make multiple instences of 
 		me.pool.register("player", game.PlayerEntity, true);
 
 		me.state.set(me.state.MENU, new game.TitleScreen());

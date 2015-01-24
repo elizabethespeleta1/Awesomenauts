@@ -9,6 +9,12 @@ game.PlayScreen = me.ScreenObject.extend({
 		game.data.score = 0;
 		me.levelDirector.loadLevel("level01");
 
+		//adding player by pulling an instance
+		//player is the name were pulling out of the pool
+		// the numbers are where hes going to start
+		//me.game.world is adding the player to the world
+		//showing where he is to the screen
+		//the higher the number is the closer he is to the screen
 		var player = me.pool.pull("player", 0, 420, {});
 		me.game.world.addChild(player, 5);
 

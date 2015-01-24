@@ -1,4 +1,15 @@
+//this is a class
+//game.PlayerEntity is a class that is why there both capital
+//me.Entity is a class
 game.PlayerEntity = me.Entity.extend({
+	//this is a constructer function
+	//melon js uses this contructer on most things for setutp
+	//you need x y and settings
+	//you're initializing the basic guy
+	//super is reaching into the constructer of me.Entity you need settings
+	//getShape function is returning a rectangle shape
+	//the numbers of the width and height of the box
+	//polygon is a method 
 	init: function(x, y, settings){
 		this._super(me.Entity, 'init', [x, y, {
 			image: "player", 
