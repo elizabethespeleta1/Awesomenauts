@@ -24,7 +24,7 @@ game.PlayerEntity = me.Entity.extend({
 
 		//choosing a velocity for the player
 		//moving 5 units to the right
-		this.body.setVelocity(5, 0);
+		this.body.setVelocity(5, 20);
 	},
 
 	update: function(delta){
