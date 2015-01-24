@@ -24,6 +24,7 @@ game.PlayerEntity = me.Entity.extend({
 
 		//choosing a velocity for the player
 		//moving 5 units to the right
+		//y is 20 so character is on the floor
 		this.body.setVelocity(5, 20);
 	},
 
