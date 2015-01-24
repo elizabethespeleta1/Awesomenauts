@@ -22,17 +22,27 @@ game.PlayerEntity = me.Entity.extend({
 			}
 		}]);
 
+		//choosing a velocity for the player
+		//moving 5 units to the right
 		this.body.setVelocity(5, 0);
 	},
 
 	update: function(delta){
+		//checking if the right key is pressed
 		if(me.input.isKeyPressed("right")){
+			//if the key is pressed this is what happens
+			//adds the position of my x by the velocity defined above in
+			//setVelocity() and multiplying it by me.timer.tick
+			//me.timer.tick makes the movement look smooth
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
 		}
+		//if you stop pressing the right key
 		else{
+			//it wont move
 			this.body.vel.x = 0;
 		}
 
+		//delta is the change of time its happened
 		this.body.update(delta);
 		return true;
 	}
