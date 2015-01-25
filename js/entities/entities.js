@@ -27,9 +27,13 @@ game.PlayerEntity = me.Entity.extend({
 		//y is 20 so character is on the floor
 		this.body.setVelocity(5, 20);
 
+		//this.renderable.addAnimation adds animation using the pictures
+		//80 miliseconds is the speed you go through each picture
+		//the number is what picture from orcSpear.png the program uses
 		this.renderable.addAnimation("idle", [78]);
 		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
 	
+		//this is the animation it starts at (facing the screen)
 		this.renderable.setCurrentAnimation("idle");
 	},
 
@@ -41,6 +45,7 @@ game.PlayerEntity = me.Entity.extend({
 			//setVelocity() and multiplying it by me.timer.tick
 			//me.timer.tick makes the movement look smooth
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
+			//this is so the character faces the right when moving to the right (if this isnt here the character faces the left when walking to the right)
 			this.flipX(true);
 		}
 		//if you stop pressing the right key
@@ -49,11 +54,17 @@ game.PlayerEntity = me.Entity.extend({
 			this.body.vel.x = 0;
 		}
 
+		//this will run only if the character is moving
 		if(this.body.vel.x !== 0){
+			//this if statement checks what happening with the character
+			////if its not moving it'll walk
+			//if it isnt it'll walk
 			if(!this.renderable.isCurrentAnimation("walk")){
 				this.renderable.setCurrentAnimation("walk");
 			}
 		}
+		//this will run if the velocity is not 0
+		//this will make the walking stop
 		else{
 			this.renderable.setCurrentAnimation("idle");
 		}
@@ -61,6 +72,8 @@ game.PlayerEntity = me.Entity.extend({
 		//delta is the change of time its happened
 		this.body.update(delta);
 
+		//calling the parent class
+		//this is updating the super class so the animations can update
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	}
