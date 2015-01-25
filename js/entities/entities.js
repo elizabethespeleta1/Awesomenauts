@@ -79,7 +79,62 @@ game.PlayerEntity = me.Entity.extend({
 	}
 });
 
+//this is a class
+//making a constructor with ._super
+//setting the picture and size
+//getShape is returning a rectangle
+//toPolygon is there so you can use it
 game.PlayerBaseEntity = me.Entity.extend({
+	init : function (x, y, settings){
+		this._super(me.Entity, 'init' [x, y, {
+			image : "tower",
+			width : 100,
+			height : 100,
+			spritewidth : "100",
+			spriteheight : "100",
+			getShape: function(){
+				return (new me.Rect (0, 0, 100, 100)).toPolygon();
+			}
+		}]);
+		//this variable is saying the tower isnt broken
+		this.broken = false;
+		//this variable is setting the health to 10
+		this.health = 10;
+		//this variable is saying it'll always update whether or not your looking at it
+		this.alwaysUpdate = true;
+		//this variable is so if somebody runs into the tower you can collide with it
+		this.body.onCollision = this.onCollision.bind(this);
+
+		//the type allows you to use it when doing other collisions and you can check what your running into
+		this.type = "PlayerBaseEntity";
+	},
+
+
+	update:function() {
+		//this runs when the health is less than or equal to zero
+		if(this.health<=0){
+			//if its true your character is dead 
+			this.broken = true;
+		}
+		//then it updates delta (the time)
+		this.body.update(delta);
+
+		//calling the super
+		//updating and returning
+		this._super(me.Entity, "update", [delta]);
+		return true;
+	},
+
+	//for colliding 
+	onCollision: function(){
+
+	}
+
+});
+
+//this is a class for the enemy base
+//almost the same the class above
+game.EnemyBaseEntity = me.Entity.extend({
 	init : function (x, y, settings){
 		this._super(me.Entity, 'init' [x, y, {
 			image : "tower",
@@ -94,12 +149,23 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.broken = false;
 		this.health = 10;
 		this.alwaysUpdate = true;
-		this.body.onCollsion = this.onCollsion.bind(this);
+		this.body.onCollision = this.onCollision.bind(this);
 
-		this.type = "PlayerBaseEntity";
+		this.type = "EnemyBaseEntity";
 	},
 
 	update:function() {
-		// body...
+		if(this.health<=0){
+			this.broken = true;
+		}
+		this.body.update(delta);
+
+		this._super(me.Entity, "update", [delta]);
+		return true;
+	},
+
+	onCollision: function(){
+
 	}
-})
+
+});
