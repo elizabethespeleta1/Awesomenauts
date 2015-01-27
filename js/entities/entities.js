@@ -26,6 +26,7 @@ game.PlayerEntity = me.Entity.extend({
 		//moving 5 units to the right
 		//y is 20 so character is on the floor
 		this.body.setVelocity(5, 20);
+		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
 		//this.renderable.addAnimation adds animation using the pictures
 		//80 miliseconds is the speed you go through each picture
@@ -86,7 +87,7 @@ game.PlayerEntity = me.Entity.extend({
 //toPolygon is there so you can use it
 game.PlayerBaseEntity = me.Entity.extend({
 	init : function (x, y, settings){
-		this._super(me.Entity, 'init' [x, y, {
+		this._super(me.Entity, 'init', [x, y, {
 			image : "tower",
 			width : 100,
 			height : 100,
@@ -107,14 +108,19 @@ game.PlayerBaseEntity = me.Entity.extend({
 
 		//the type allows you to use it when doing other collisions and you can check what your running into
 		this.type = "PlayerBaseEntity";
+
+		this.renderable.addAnimation("idle", [0]);
+		this.renderable.addAnimation("broken", [1]);
+		this.renderable.setCurrentAnimation("idle");
 	},
 
 
-	update:function() {
+	update:function(delta) {
 		//this runs when the health is less than or equal to zero
 		if(this.health<=0){
 			//if its true your character is dead 
 			this.broken = true;
+			this.renderable.setCurrentAnimation("broken");
 		}
 		//then it updates delta (the time)
 		this.body.update(delta);
@@ -136,7 +142,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 //almost the same the class above
 game.EnemyBaseEntity = me.Entity.extend({
 	init : function (x, y, settings){
-		this._super(me.Entity, 'init' [x, y, {
+		this._super(me.Entity, 'init', [x, y, {
 			image : "tower",
 			width : 100,
 			height : 100,
@@ -152,11 +158,17 @@ game.EnemyBaseEntity = me.Entity.extend({
 		this.body.onCollision = this.onCollision.bind(this);
 
 		this.type = "EnemyBaseEntity";
+
+		this.renderable.addAnimation("idle", [0]);
+		this.renderable.addAnimation("broken", [1]);
+		this.renderable.setCurrentAnimation("idle");
+
 	},
 
-	update:function() {
+	update:function(delta) {
 		if(this.health<=0){
 			this.broken = true;
+			this.renderable.setCurrentAnimation("broken");
 		}
 		this.body.update(delta);
 
