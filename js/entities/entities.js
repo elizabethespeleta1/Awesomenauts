@@ -33,7 +33,8 @@ game.PlayerEntity = me.Entity.extend({
 		//the number is what picture from orcSpear.png the program uses
 		this.renderable.addAnimation("idle", [78]);
 		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
-	
+		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
+
 		//this is the animation it starts at (facing the screen)
 		this.renderable.setCurrentAnimation("idle");
 	},
@@ -64,14 +65,23 @@ game.PlayerEntity = me.Entity.extend({
 				this.renderable.setCurrentAnimation("walk");
 			}
 		}
+		else if(me.input.isKeyPressed("attack")){
+			if(!this.renderable.isCurrentAnimation("attack")){
+				console.log(!this.renderable.isCurrentAnimation("attack"));
+				this.renderable.setCurrentAnimation("attack", "idle");
+				this.renderable.setAnimationFrame();
+			}
+		}
 		//this will run if the velocity is not 0
 		//this will make the walking stop
 		else{
 			this.renderable.setCurrentAnimation("idle");
 		}
 
+
 		//delta is the change of time its happened
 		this.body.update(delta);
+
 
 		//calling the parent class
 		//this is updating the super class so the animations can update
