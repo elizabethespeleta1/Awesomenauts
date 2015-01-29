@@ -51,9 +51,18 @@ game.PlayerEntity = me.Entity.extend({
 			this.flipX(true);
 		}
 		//if you stop pressing the right key
+		else if (me.input.isKeyPressed("left")){
+			this.body.vel.x -=this.body.accel.x * me.timer.tick;
+			this.flipX(false);
+		}
 		else{
 			//it wont move
 			this.body.vel.x = 0;
+		}
+
+		if(me.input.isKeyPressed("jump") && !this.falling){
+			this.jumping = true;
+			this.body.vel.y -= this.body.accel.y * me.timer.tick;
 		}
 
 		//this will run only if the character is moving
@@ -104,7 +113,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 			spritewidth : "100",
 			spriteheight : "100",
 			getShape: function(){
-				return (new me.Rect (0, 0, 100, 100)).toPolygon();
+				return (new me.Rect (0, 0, 70, 70)).toPolygon();
 			}
 		}]);
 		//this variable is saying the tower isnt broken
@@ -159,7 +168,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 			spritewidth : "100",
 			spriteheight : "100",
 			getShape: function(){
-				return (new me.Rect (0, 0, 100, 100)).toPolygon();
+				return (new me.Rect (0, 0, 70, 70)).toPolygon();
 			}
 		}]);
 		this.broken = false;
