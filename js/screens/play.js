@@ -18,6 +18,9 @@ game.PlayScreen = me.ScreenObject.extend({
 		var player = me.pool.pull("player", 0, 420, {});
 		me.game.world.addChild(player, 5);
 
+		var gamemanager = me.pool.pull("GameManager", 0 , 0, {} );
+		me.game.world.addChild(gamemanager, 0);
+
 		//bind the key for movement
 		//calling the key for right left jumping and attacking
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
