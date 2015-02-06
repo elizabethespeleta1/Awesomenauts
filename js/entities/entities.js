@@ -30,7 +30,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.facing = "right";
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
-		//this.renderable.addAnimation adds animation using the pictures
+		//this.renderable.addAnimation adds animation(makes your character look like its walking standing or attacking) using the pictures
 		//80 miliseconds is the speed you go through each picture
 		//the number is what picture from orcSpear.png the program uses
 		this.renderable.addAnimation("idle", [78]);
@@ -69,20 +69,27 @@ game.PlayerEntity = me.Entity.extend({
 			this.body.vel.y -= this.body.accel.y * me.timer.tick;
 		} 
 
+		//checking if attack is pressed
+		if(me.input.isKeyPressed("attack")){
+			//runs if your not attacking
+			if(!this.renderable.isCurrentAnimation("attack")){
+				//sets the current animation to attack and once that is over
+				//goes back to the idle animation
+				console.log(!this.renderable.isCurrentAnimation("attack"));
+				this.renderable.setCurrentAnimation("attack", "idle");
+				//makes it so that the next time we start the animation this sequence we begin
+				//from the first animation, not wherever we left off when we
+				//switched to another animation
+				this.renderable.setAnimationFrame();
+			}
+		}
 		//this will run only if the character is moving
-		if(this.body.vel.x !== 0){
+		else if(this.body.vel.x !== 0){
 			//this if statement checks what happening with the character
 			////if its not moving it'll walk
 			//if it isnt it'll walk
 			if(!this.renderable.isCurrentAnimation("walk")){
 				this.renderable.setCurrentAnimation("walk");
-			}
-		}
-		else if(me.input.isKeyPressed("attack")){
-			if(!this.renderable.isCurrentAnimation("attack")){
-				console.log(!this.renderable.isCurrentAnimation("attack"));
-				this.renderable.setCurrentAnimation("attack", "idle");
-				this.renderable.setAnimationFrame();
 			}
 		}
 		//this will run if the velocity is not 0
