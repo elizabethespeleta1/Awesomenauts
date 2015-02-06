@@ -55,8 +55,8 @@ game.PlayerEntity = me.Entity.extend({
 		}
 		//if you stop pressing the right key
 		else if (me.input.isKeyPressed("left")){
-			this.facing = "left";
 			this.body.vel.x -=this.body.accel.x * me.timer.tick;
+			this.facing = "left";
 			this.flipX(false);
 		}
 		else{
@@ -64,7 +64,9 @@ game.PlayerEntity = me.Entity.extend({
 			this.body.vel.x = 0;
 		}
 
+		//if you press jump && make sure you dont double jumping // your not already jumping and your not falling 
 		if(me.input.isKeyPressed("jump") && !this.body.falling && !this.body.jumping){
+			//if it runs you can jump
 			this.body.jumping = true;
 			this.body.vel.y -= this.body.accel.y * me.timer.tick;
 		} 
