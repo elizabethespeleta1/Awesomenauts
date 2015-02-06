@@ -25,6 +25,7 @@ game.PlayerEntity = me.Entity.extend({
 		//choosing a velocity for the player
 		//moving 5 units to the right
 		//y is 20 so character is on the floor
+		//me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH); makes it so the character is always being followed on the screen
 		this.body.setVelocity(5, 20);
 		this.facing = "right";
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
@@ -153,6 +154,9 @@ game.PlayerBaseEntity = me.Entity.extend({
 		//the type allows you to use it when doing other collisions and you can check what your running into
 		this.type = "PlayerBaseEntity";
 
+		//0 because is the not burning animation
+		//1 is another animation
+		//this.renderable.setCurrentAnimation("idle"); sets the animation when the tower is broken
 		this.renderable.addAnimation("idle", [0]);
 		this.renderable.addAnimation("broken", [1]);
 		this.renderable.setCurrentAnimation("idle");
@@ -203,6 +207,9 @@ game.EnemyBaseEntity = me.Entity.extend({
 
 		this.type = "EnemyBaseEntity";
 
+		//0 because is the not burning animation
+		//1 is another animation
+		//this.renderable.setCurrentAnimation("idle"); sets the animation when the tower is broken
 		this.renderable.addAnimation("idle", [0]);
 		this.renderable.addAnimation("broken", [1]);
 		this.renderable.setCurrentAnimation("idle");

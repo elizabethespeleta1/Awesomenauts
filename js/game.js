@@ -43,6 +43,7 @@ var game = {
 		//connecting to playerEntity class
 		//true means you can make multiple instences of 
 		me.pool.register("player", game.PlayerEntity, true);
+		//registering the entities // both bases
 		me.pool.register("PlayerBase", game.PlayerBaseEntity);
 		me.pool.register("EnemyBase", game.EnemyBaseEntity);
 
