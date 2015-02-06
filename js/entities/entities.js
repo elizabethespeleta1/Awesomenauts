@@ -29,8 +29,10 @@ game.PlayerEntity = me.Entity.extend({
 		this.body.setVelocity(5, 20);
 		//keep track of which direction your character is going
 		this.facing = "right";
+		//this keeps track of time
 		this.now = new Date().getTime();
 		this.lastHit = this.now;
+		//this allows you to have a hit delay
 		this.lastAttack = new Date().getTime();
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
