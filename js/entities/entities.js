@@ -320,19 +320,34 @@ game.EnemyCreep = me.Entity.extend({
 
 });
 
+
+//class for all the timers
+//not an entity wont show up on the screen
 game.GameManager = Object.extend({
+	//constructor function
 	 init: function (x, y, settings){
+	 	//for time
 	 	this.now = new Date().getTime;
+	 	//last time made a creep happen
 	 	this.lastCreep = new Date().getTime();
 
+	 	//so it constantly updates
 	 	this.alwaysUpdate = true;
 	 },
 	 update: function(){
+	 	//keeping track of time
 	 	this.now = new Date().getTime();
 
+	 	//keeping track if you need creeps
+	 	//math.round checks and makes sure that you have amultiple of ten
+	 	//checking to be a sec  % checks if you have a multiple of ten 
+	 	//and checking if you spawn over and over again
 	 	if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){
+	 		//update last creep time
 	 		this.lastCreep = this.now;
+	 		//building a creep 
 	 		var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
+	 		//adding creeps to the world
 	 		me.game.world.addChild(creepe, 5);
 	 	}
 
