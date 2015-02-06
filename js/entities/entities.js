@@ -48,6 +48,7 @@ game.PlayerEntity = me.Entity.extend({
 	},
 
 	update: function(delta){
+		//updating the time
 		this.now = new Date().getTime();
 		//checking if the right key is pressed
 		if(me.input.isKeyPressed("right")){
@@ -160,7 +161,8 @@ game.PlayerEntity = me.Entity.extend({
 			}
 			//checking if your hitting the enemy base
 			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >=1000){
-				//if it runs you lose health
+	//			//if it runs you lose health
+	//			//updating last hit aka time
 				this.lastHit = this.now;
 				response.b.loseHealth();
 			}
