@@ -27,6 +27,7 @@ game.PlayerEntity = me.Entity.extend({
 		//y is 20 so character is on the floor
 		//me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH); makes it so the character is always being followed on the screen
 		this.body.setVelocity(5, 20);
+		//keep track of which direction your character is going
 		this.facing = "right";
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
@@ -56,6 +57,7 @@ game.PlayerEntity = me.Entity.extend({
 		//if you stop pressing the right key
 		else if (me.input.isKeyPressed("left")){
 			this.body.vel.x -=this.body.accel.x * me.timer.tick;
+			//this is so the character faces the left when moving to the left (if this isnt here the character faces the right when walking to the left)
 			this.facing = "left";
 			this.flipX(false);
 		}
@@ -100,7 +102,8 @@ game.PlayerEntity = me.Entity.extend({
 			this.renderable.setCurrentAnimation("idle");
 		}
 
-
+		//sets up the collsions
+		//passing a parameter to collideHandler about the player
 		me.collision.check(this, true, this.collideHandler.bind(this), true);
 		//delta is the change of time its happened
 		this.body.update(delta);
@@ -112,8 +115,18 @@ game.PlayerEntity = me.Entity.extend({
 		return true;
 	},
 
+	//passing a parameter
+	//collideHandler is function and responding to a collision
 	collideHandler: function(response){
+		//runs when response b is whatever your colliding with
+		//in this case the enemy base entity
+		//response a is related to the character
 		if(response.b.type==='EnemyBaseEntity'){
+			//runs if your running into the enemy base
+			//var ydif is the difference between players y postion and
+			// bases y position
+			//var xdif is the difference between players y postion and
+			// bases y position
 			var ydif = this.pos.y - response.b.pos.y;
 			var xdif = this.pos.x - response.b.pos.x;
 
@@ -121,11 +134,16 @@ game.PlayerEntity = me.Entity.extend({
 				this.body.falling = false;
 				this.body.vel.y = -1;
 			}
+			//runs if your approaching/facing the base from the right
 			else if(xdif>-35 && this.facing==='right' && (xdif<0)){
+				//stops the character
 				this.body.vel.x = 0;
+				//makes sure the player cant break through the base
 				this.pos.x = this.pos.x -1;
 			}
+			//runs if your approaching/facing the base from the left
 			else if(xdif<70 && this.facing==='left' && xdif>0){
+				//stops the character
 				this.body.vel.x = 0;
 				this.pos.x = this.pos.x +1;
 			}
