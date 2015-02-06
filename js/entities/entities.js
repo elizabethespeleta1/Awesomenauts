@@ -285,8 +285,13 @@ game.EnemyBaseEntity = me.Entity.extend({
 
 });
 
-
+//class for the enemy
 game.EnemyCreep = me.Entity.extend({
+	//this is a function
+	//you need x y and settings
+	//super is reaching into the constructer of me.Entity you need settings
+	//getShape function is returning a rectangle shape
+	//the numbers of the width and height of the box
 	init: function(x,y, settings){
 		this._super(me.Entity, 'init', [x, y, {
 			image: "creep1",
