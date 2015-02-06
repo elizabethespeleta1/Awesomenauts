@@ -129,12 +129,15 @@ game.PlayerEntity = me.Entity.extend({
 			// bases y position
 			var ydif = this.pos.y - response.b.pos.y;
 			var xdif = this.pos.x - response.b.pos.x;
-
+			
+//	//		//runs if ydifference<-40 && xdif< 70 && xdif>-35
+//	//		//allows you to stand on base
 			if(ydif<-40 && xdif< 70 && xdif>-35){
 				this.body.falling = false;
 				this.body.vel.y = -1;
 			}
 			//runs if your approaching/facing the base from the right
+			// && if the xdif is less than zero
 			else if(xdif>-35 && this.facing==='right' && (xdif<0)){
 				//stops the character
 				this.body.vel.x = 0;
