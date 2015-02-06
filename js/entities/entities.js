@@ -29,6 +29,9 @@ game.PlayerEntity = me.Entity.extend({
 		this.body.setVelocity(5, 20);
 		//keep track of which direction your character is going
 		this.facing = "right";
+		this.now = new Date().getTime();
+		this.lastHit = this.now;
+		this.lastAttack = new Date().getTime();
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
 		//this.renderable.addAnimation adds animation(makes your character look like its walking standing or attacking) using the pictures
@@ -43,6 +46,7 @@ game.PlayerEntity = me.Entity.extend({
 	},
 
 	update: function(delta){
+		this.now = new Date().getTime();
 		//checking if the right key is pressed
 		if(me.input.isKeyPressed("right")){
 			//if the key is pressed this is what happens
@@ -88,7 +92,8 @@ game.PlayerEntity = me.Entity.extend({
 			}
 		}
 		//this will run only if the character is moving
-		else if(this.body.vel.x !== 0){
+//	//	//and if the attack animation is not going
+		else if(this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")){
 			//this if statement checks what happening with the character
 			////if its not moving it'll walk
 			//if it isnt it'll walk
@@ -98,7 +103,8 @@ game.PlayerEntity = me.Entity.extend({
 		}
 		//this will run if the velocity is not 0
 		//this will make the walking stop
-		else{
+		//making sure your not attacking
+		else if(!this.renderable.isCurrentAnimation("attack")){
 			this.renderable.setCurrentAnimation("idle");
 		}
 
@@ -130,8 +136,8 @@ game.PlayerEntity = me.Entity.extend({
 			var ydif = this.pos.y - response.b.pos.y;
 			var xdif = this.pos.x - response.b.pos.x;
 			
-//	//		//runs if ydifference<-40 && xdif< 70 && xdif>-35
-//	//		//allows you to stand on base
+			//runs if ydifference<-40 && xdif< 70 && xdif>-35
+			//allows you to stand on base
 			if(ydif<-40 && xdif< 70 && xdif>-35){
 				this.body.falling = false;
 				this.body.vel.y = -1;
@@ -149,6 +155,12 @@ game.PlayerEntity = me.Entity.extend({
 				//stops the character
 				this.body.vel.x = 0;
 				this.pos.x = this.pos.x +1;
+			}
+			//checking if your hitting the enemy base
+			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >=1000){
+				//if it runs you lose health
+				this.lastHit = this.now;
+				response.b.loseHealth();
 			}
 
 		}
@@ -259,6 +271,12 @@ game.EnemyBaseEntity = me.Entity.extend({
 
 	onCollision: function(){
 
+	},
+
+	//this function runs so you can lose health
+	loseHealth: function(){
+		//this makes your health go down one
+		this.health--;
 	}
 
 });
