@@ -315,6 +315,7 @@ game.EnemyCreep = me.Entity.extend({
 	},
 
 	update: function(delta){
+		//makes the character move
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
 
 		//then it updates delta (the time)
