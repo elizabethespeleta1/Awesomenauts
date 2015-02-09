@@ -314,8 +314,15 @@ game.EnemyCreep = me.Entity.extend({
 		this.renderable.setCurrentAnimation("walk");
 	},
 
-	update: function(){
+	update: function(delta){
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;
 
+		//then it updates delta (the time)
+		this.body.update(delta);
+
+		//calling the super
+		//updating and returning
+		this._super(me.Entity, "update", [delta]);
 	}
 
 });
