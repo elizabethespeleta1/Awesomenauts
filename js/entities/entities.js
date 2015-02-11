@@ -196,9 +196,8 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.alwaysUpdate = true;
 		//this variable is so if somebody runs into the tower you can collide with it
 		this.body.onCollision = this.onCollision.bind(this);
-
 		//the type allows you to use it when doing other collisions and you can check what your running into
-		this.type = "PlayerBaseEntity";
+		this.type = "PlayerBase";
 
 		//0 because is the not burning animation
 		//1 is another animation
@@ -223,6 +222,10 @@ game.PlayerBaseEntity = me.Entity.extend({
 		//updating and returning
 		this._super(me.Entity, "update", [delta]);
 		return true;
+	},
+
+	loseHealth: function(damage){
+		this.health = this.health - damage;
 	},
 
 	//for colliding 
@@ -305,7 +308,10 @@ game.EnemyCreep = me.Entity.extend({
 		}]);
 		this.health = 10;
 		this.alwaysUpdate = true;
-
+		this.attacking = false;
+		this.lastAttacking = new Date().getTime();
+		this.lastHit = new Date().getTime();
+		this.now = new Date().getTime();
 		this.body.setVelocity(3,20);
 
 		this.type = "EnemyCreep";
@@ -315,8 +321,11 @@ game.EnemyCreep = me.Entity.extend({
 	},
 
 	update: function(delta){
+		this.now = new Date().getTime();
 		//makes the character move
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+
+		me.collision.check(this, true, this.collideHandler.bind(this), true);
 
 		//then it updates delta (the time)
 		this.body.update(delta);
@@ -324,6 +333,20 @@ game.EnemyCreep = me.Entity.extend({
 		//calling the super
 		//updating and returning
 		this._super(me.Entity, "update", [delta]);
+	},
+
+	collideHandler: function(response){
+		if(response.b.type==='PlayerBase'){
+			this.attacking=true;
+			//this.lastAttacking = this.now;
+			this.body.vel.x = 0;
+			this.pos.x = this.pos.x + 1;
+			if((this.now-this.lastHit >=1000)){
+				this.lastHit = this.now;
+				response.b.loseHealth(1);
+			}
+			
+		}
 	}
 
 });
