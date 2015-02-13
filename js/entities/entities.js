@@ -179,30 +179,43 @@ game.PlayerEntity = me.Entity.extend({
 			}
 
 		}
+
+		//checking if the player(response.b.type) is attacking creeps
 		else if (response.b.type==='EnemyCreep'){
+			//variable for x difference and y difference of the player and creep
 			var xdif = this.pos.x - response.b.pos.x;
 			var ydif = this.pos.y - response.b.pos.y;
 
+			//runs if the xdif is > 0
 			if(xdif > 0){
+				//keeps the player from walking through the enemy
 				this.pos.x = this.pos.x +1;
+				//keeps track of where your facing
 				if(this.facing==="left"){
-					this.body.vel.x=0;
+					this.body.vel.x = 0;
 				}
-			
+			//runs if x < 0
 			else{
+				//keeps the player from walking through the enemy
 				this.pos.x = this.pos.x -1;
 				if(this.facing==="right"){
-					this.body.vel.x=0;
+					this.body.vel.x = 0;
 				}
 			}
 
 		}
-
+			//this.renderable.isCurrentAnimation("attack") means this will run only if your attacking , 
+			//this.now-this.lastHit >=1000 is checking when you last hit was and if it was more than a second ago
+			//((xdif>0 && this.facing==="left") || ((xdif<0) && this.facing==="right")) makes it so you cant attack the enemy when your not facing it 
+			// (Math.abs(ydif)<= 40) abs means absolute value makes it so you cant attack it above its head
+			// || means or
 			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >=1000  
 			&& (Math.abs(ydif)<= 40) 
 			&& ((xdif>0 && this.facing==="left") || ((xdif<0) && this.facing==="right"))
 			){
+				//updating the timer
 				this.lastHit = this.now;
+				//player makes the creep lose health by one when attacking
 				response.b.loseHealth(1);
 			}
 		}
@@ -364,14 +377,20 @@ game.EnemyCreep = me.Entity.extend({
 		this.renderable.setCurrentAnimation("walk");
 	},
 
+	//this function passes in damage in other words
+	//when this runs the creep will lose health
 	loseHealth: function(damage){
+		//makes the creep's health go down 
 		this.health = this.health - damage;
 	},
 
 	update: function(delta){
+		//shows what the creeps health is 
 		console.log(this.health);
 
+		//when the health = 0 (dead) this runs
 		if(this.health<=0){
+			//removes creep when its dead
 			me.game.world.removeChild(this);
 		}
 
