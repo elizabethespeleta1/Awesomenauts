@@ -126,7 +126,9 @@ game.PlayerEntity = me.Entity.extend({
 		return true;
 	},
 
+	//this function makes your base lose health
 	loseHealth: function(damage){
+		//makes your base lose health
 		this.health = this.health - damage;
 		console.log(this.health);
 	},
@@ -341,9 +343,13 @@ game.EnemyCreep = me.Entity.extend({
 		}]);
 		this.health = 10;
 		this.alwaysUpdate = true;
+		//lets us know if the enemy is currently attacking
 		this.attacking = false;
+		//keeps track of when the creep last attacked anything
 		this.lastAttacking = new Date().getTime();
+		//keeps track of the last time the creep hit anything
 		this.lastHit = new Date().getTime();
+		//timer when your attacking the player base
 		this.now = new Date().getTime();
 		this.body.setVelocity(3,20);
 
@@ -359,15 +365,18 @@ game.EnemyCreep = me.Entity.extend({
 
 	update: function(delta){
 		console.log(this.health);
-		
+
 		if(this.health<=0){
 			me.game.world.removeChild(this);
 		}
 
+		//timer when your attacking the player base
 		this.now = new Date().getTime();
 		//makes the character move
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
 
+		//checking for collsions for the creep if it doesnt then it
+		//passes it to the collide handler
 		me.collision.check(this, true, this.collideHandler.bind(this), true);
 
 		//then it updates delta (the time)
@@ -378,14 +387,21 @@ game.EnemyCreep = me.Entity.extend({
 		this._super(me.Entity, "update", [delta]);
 	},
 
-	collideHandler: function(response){
+	//a function with the parameter response
+	collideHandler : function(response){
 		if(response.b.type==='PlayerBase'){
+			//checks if your attacking
 			this.attacking=true;
 			//this.lastAttacking = this.now;
 			this.body.vel.x = 0;
+			//keeps moving the creep to the right to maintain its position
 			this.pos.x = this.pos.x + 1;
+			//checks it has at least been one second (or 1000 miliseconds) since the creeo hit a base
 			if((this.now-this.lastHit >=1000)){
+				//updates the lastHit timer
 				this.lastHit = this.now;
+				//makes the player base call its losehealth function and passes it a
+				//damage of 1
 				response.b.loseHealth(1);
 			}
 			
@@ -397,8 +413,13 @@ game.EnemyCreep = me.Entity.extend({
 				this.body.vel.x = 0;
 				this.pos.x = this.pos.x + 1;
 
+			//checking the last time you attacked a base
+			// and checking if its past a second
+			//runs if this is true
 			if((this.now-this.lastHit >=1000)){
+				//resetting the current timer
 				this.lastHit = this.now;
+				//makes the player lose health
 				response.b.loseHealth(1);
 			}
 		}
