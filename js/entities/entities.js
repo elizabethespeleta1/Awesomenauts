@@ -21,8 +21,9 @@ game.PlayerEntity = me.Entity.extend({
 				return(new me.Rect(0, 0, 64, 64)).toPolygon();
 			}
 		}]);
-
+		//setting a type
 		this.type="PlayerEntity";
+		//setting the players health to 20
 		this.health = 20;
 		//choosing a velocity for the player
 		//moving 5 units to the right
@@ -126,12 +127,14 @@ game.PlayerEntity = me.Entity.extend({
 		return true;
 	},
 
-	//this function makes your base lose health
+	//this function makes your player lose health
 	loseHealth: function(damage){
-		//makes your base lose health
+		//makes your player lose health
 		this.health = this.health - damage;
+		//printing what your players health is
 		console.log(this.health);
 	},
+
 	//passing a parameter
 	//collideHandler is function and responding to a collision
 	collideHandler: function(response){
@@ -259,7 +262,9 @@ game.PlayerBaseEntity = me.Entity.extend({
 		return true;
 	},
 
+	//this function makes your base lose health
 	loseHealth: function(damage){
+		//this makes your base lose health
 		this.health = this.health - damage;
 	},
 
@@ -393,9 +398,11 @@ game.EnemyCreep = me.Entity.extend({
 			//checks if your attacking
 			this.attacking=true;
 			//this.lastAttacking = this.now;
+			//setting the velocity to 0
 			this.body.vel.x = 0;
 			//keeps moving the creep to the right to maintain its position
 			this.pos.x = this.pos.x + 1;
+
 			//checks it has at least been one second (or 1000 miliseconds) since the creeo hit a base
 			if((this.now-this.lastHit >=1000)){
 				//updates the lastHit timer
@@ -406,12 +413,18 @@ game.EnemyCreep = me.Entity.extend({
 			}
 			
 		}
+		//allows creep to only hit one thing at a time ( base or player)
 		else if(response.b.type==='PlayerEntity') {
+			//variable for your x difference ( postion of creep - postition of player)
+			//postion of the creep (this.pos.x) 
+			//postion of the player (response.b.pos.x)
 			var xdif = this.pos.x - response.b.pos.x;
-				this.attacking=true;
-				//this.lastAttacking = this.now;
-				this.body.vel.x = 0;
-				this.pos.x = this.pos.x + 1;
+			this.attacking=true;
+			//this.lastAttacking = this.now;
+			//setting the velocity to 0
+			this.body.vel.x = 0;
+			//keeps moving the creep to the right to maintain its position
+			this.pos.x = this.pos.x + 1;
 
 			//checking the last time you attacked a base
 			// and checking if its past a second
@@ -422,6 +435,7 @@ game.EnemyCreep = me.Entity.extend({
 				//makes the player lose health
 				response.b.loseHealth(1);
 			}
+
 		}
 	}
 
