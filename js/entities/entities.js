@@ -502,9 +502,11 @@ game.GameManager = Object.extend({
 	 	//keeping track of time
 	 	this.now = new Date().getTime();
 
+	 	//removes player
 	 	if(game.data.player.dead){
 	 		//removes player when its dead
 			me.game.world.removeChild(game.data.player);
+			//this respawns the player in 10,0
 	 		me.state.current().resetPlayer(10, 0);
 	 	}
 

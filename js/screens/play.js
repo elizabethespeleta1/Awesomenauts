@@ -9,6 +9,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		game.data.score = 0;
 		me.levelDirector.loadLevel("level01");
 
+		//spawns the player
 		this.resetPlayer(0,420);
 
 		//adding the gamemanager to the world
