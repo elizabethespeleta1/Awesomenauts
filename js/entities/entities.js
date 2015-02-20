@@ -68,11 +68,6 @@ game.PlayerEntity = me.Entity.extend({
 		if (this.health <= 0){
 			//allows you to die
 			this.dead = true;
-			//this resets where you are
-			this.pos.x = 10;
-			this.pos.y = 0;
-			//resets the health fully again
-			this.health = game.data.playerHealth;
 		}
 
 		//checking if the right key is pressed
@@ -184,13 +179,13 @@ game.PlayerEntity = me.Entity.extend({
 				//stops the character
 				this.body.vel.x = 0;
 				//makes sure the player cant break through the base
-				this.pos.x = this.pos.x -1;
+				//this.pos.x = this.pos.x -1;
 			}
 			//runs if your approaching/facing the base from the left
 			else if(xdif<70 && this.facing==='left' && xdif>0){
 				//stops the character
 				this.body.vel.x = 0;
-				this.pos.x = this.pos.x +1;
+				//this.pos.x = this.pos.x +1;
 			}
 			//checking if your hitting the enemy base
 			//playerAttackTimer lets you hit quicker/ slower (variable made in game.js)
@@ -213,21 +208,24 @@ game.PlayerEntity = me.Entity.extend({
 			//runs if the xdif is > 0
 			if(xdif > 0){
 				//keeps the player from walking through the enemy
-				this.pos.x = this.pos.x +1;
+				//this.pos.x = this.pos.x +1;
+
 				//keeps track of where your facing
 				if(this.facing==="left"){
 					this.body.vel.x = 0;
 				}
 			//runs if x < 0
+			}
 			else{
 				//keeps the player from walking through the enemy
-				this.pos.x = this.pos.x -1;
+				//this.pos.x = this.pos.x -1;
+
 				if(this.facing==="right"){
 					this.body.vel.x = 0;
 				}
 			}
 
-		}
+		
 			//this.renderable.isCurrentAnimation("attack") means this will run only if your attacking , 
 			//this.now-this.lastHit >=playerAttackTimer (playerAttackTimer was made in game.js) is checking when you last hit was and if it was more than a second ago
 			//((xdif>0 && this.facing==="left") || ((xdif<0) && this.facing==="right")) makes it so you cant attack the enemy when your not facing it 
@@ -503,6 +501,12 @@ game.GameManager = Object.extend({
 	 update: function(){
 	 	//keeping track of time
 	 	this.now = new Date().getTime();
+
+	 	if(game.data.player.dead){
+	 		//removes player when its dead
+			me.game.world.removeChild(game.data.player);
+	 		me.state.current().resetPlayer(10, 0);
+	 	}
 
 	 	//keeping track if you need creeps
 	 	//math.round checks and makes sure that you have amultiple of ten
