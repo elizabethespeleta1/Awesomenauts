@@ -21,23 +21,32 @@ game.PlayerEntity = me.Entity.extend({
 				return(new me.Rect(0, 0, 64, 64)).toPolygon();
 			}
 		}]);
+
 		//setting a type
 		this.type="PlayerEntity";
-		//setting the players health to 20
+
+		//setting the players health , using the variable (playerHealth)  made in game.js
 		this.health = game.data.playerHealth;
+
 		//choosing a velocity for the player
-		//moving 5 units to the right
+		//setting the velocity using the variable made in game.js (playerMoveSpeed)
 		//y is 20 so character is on the floor
-		//me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH); makes it so the character is always being followed on the screen
 		this.body.setVelocity(game.data.playerMoveSpeed, 20);
+
 		//keep track of which direction your character is going
 		this.facing = "right";
+
 		//this keeps track of time
 		this.now = new Date().getTime();
+
 		this.lastHit = this.now;
+		//sets to not dead
 		this.dead = false;
+
 		//this allows you to have a hit delay
 		this.lastAttack = new Date().getTime();
+
+		//me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH); makes it so the character is always being followed on the screen
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
 		//this.renderable.addAnimation adds animation(makes your character look like its walking standing or attacking) using the pictures
@@ -55,10 +64,14 @@ game.PlayerEntity = me.Entity.extend({
 		//updating the time
 		this.now = new Date().getTime();
 
+		//runs so you can die
 		if (this.health <= 0){
+			//allows you to die
 			this.dead = true;
+			//this resets where you are
 			this.pos.x = 10;
 			this.pos.y = 0;
+			//resets the health fully again
 			this.health = game.data.playerHealth;
 		}
 
@@ -180,9 +193,11 @@ game.PlayerEntity = me.Entity.extend({
 				this.pos.x = this.pos.x +1;
 			}
 			//checking if your hitting the enemy base
+			//playerAttackTimer lets you hit quicker/ slower (variable made in game.js)
 			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >=1000 >= game.data.playerAttackTimer){
-	//			//if it runs you lose health
-	//			//updating last hit aka time
+				//if it runs you lose health
+				//updating last hit aka time
+				//playerAttack is a variable that passes how much damage the base can take
 				this.lastHit = this.now;
 				response.b.loseHealth(game.data.playerAttack);
 			}
@@ -214,7 +229,7 @@ game.PlayerEntity = me.Entity.extend({
 
 		}
 			//this.renderable.isCurrentAnimation("attack") means this will run only if your attacking , 
-			//this.now-this.lastHit >=1000 is checking when you last hit was and if it was more than a second ago
+			//this.now-this.lastHit >=playerAttackTimer (playerAttackTimer was made in game.js) is checking when you last hit was and if it was more than a second ago
 			//((xdif>0 && this.facing==="left") || ((xdif<0) && this.facing==="right")) makes it so you cant attack the enemy when your not facing it 
 			// (Math.abs(ydif)<= 40) abs means absolute value makes it so you cant attack it above its head
 			// || means or
@@ -250,7 +265,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 		}]);
 		//this variable is saying the tower isnt broken
 		this.broken = false;
-		//this variable is setting the health to 10
+		//this variable is setting the health using the variable made in game.js playerBaseHealth
 		this.health = game.data.playerBaseHealth;
 		//this variable is saying it'll always update whether or not your looking at it
 		this.alwaysUpdate = true;
@@ -312,6 +327,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 			}
 		}]);
 		this.broken = false;
+		//can  change the enemyBaseHealth in game.js
 		this.health = game.data.enemyBaseHealth;
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
@@ -368,6 +384,7 @@ game.EnemyCreep = me.Entity.extend({
 				return (new me.Rect(0,0,32,64)).toPolygon();
 			}
 		}]);
+		//you can change the enemycreephealth in game.js
 		this.health = game.data.enemyCreepHealth;
 		this.alwaysUpdate = true;
 		//lets us know if the enemy is currently attacking

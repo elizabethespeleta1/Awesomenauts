@@ -4,22 +4,38 @@ var game = {
 
 	// an object where to store game information
 	data : {
-		// score
+		// variable for the score
 		score : 0,
+		// variable for the enemy base health
 		enemyBaseHealth : 10,
+		// variable for the player base health
 		playerBaseHealth: 10,
+		// variable for the enemy creep health
 		enemyCreepHealth: 10,
+		// variable for the player health
 		playerHealth: 10,
+
+		//you can add more players / enemys by changing these numbers
+		// variable for how many enemy creeps there are	
 		enemyCreepAttack: 1,
+		// variable for how many players there are	
 		playerAttack: 1,
+
+		//for orc
 //		orcBaseDamage: 10,
 //		orcBaseHealth: 100,
 //		orcBaseSpeed: 3,
 //		orcBaseDefense:0,
+
+		//keeps track of their timers (set to one sec)
 		playerAttackTimer: 1000,
 		enemyCreepAttackTimer: 1000,
+
+		//effects how fast they move
 		playerMoveSpeed:5,
 		creepMoveSpeed: 5,
+
+		//help keep track of these 
 		gameManager: "",
 		player: ""
 	},
