@@ -9,7 +9,7 @@ var game = {
 		// variable for the enemy base health
 		enemyBaseHealth : 10,
 		// variable for the player base health
-		playerBaseHealth: 10,
+		playerBaseHealth: 100,
 		// variable for the enemy creep health
 		enemyCreepHealth: 10,
 		// variable for the player health
