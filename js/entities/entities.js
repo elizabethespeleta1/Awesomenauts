@@ -43,6 +43,7 @@ game.PlayerEntity = me.Entity.extend({
 		//sets to not dead
 		this.dead = false;
 
+		this.attack = game.data.playerAttack;
 		//this allows you to have a hit delay
 		this.lastAttack = new Date().getTime();
 
@@ -106,7 +107,6 @@ game.PlayerEntity = me.Entity.extend({
 			if(!this.renderable.isCurrentAnimation("attack")){
 				//sets the current animation to attack and once that is over
 				//goes back to the idle animation
-				console.log(!this.renderable.isCurrentAnimation("attack"));
 				this.renderable.setCurrentAnimation("attack", "idle");
 				//makes it so that the next time we start the animation this sequence we begin
 				//from the first animation, not wherever we left off when we
@@ -148,8 +148,6 @@ game.PlayerEntity = me.Entity.extend({
 	loseHealth: function(damage){
 		//makes your player lose health
 		this.health = this.health - damage;
-		//printing what your players health is
-		console.log(this.health);
 	},
 
 	//passing a parameter
@@ -194,6 +192,12 @@ game.PlayerEntity = me.Entity.extend({
 				//updating last hit aka time
 				//playerAttack is a variable that passes how much damage the base can take
 				this.lastHit = this.now;
+
+				if(response.b.health <= game.data.playerAttack){
+					game.data.gold += 1;
+					console.log("Current gold: " + game.data.gold);
+				}
+
 				response.b.loseHealth(game.data.playerAttack);
 			}
 
@@ -495,9 +499,11 @@ game.GameManager = Object.extend({
 	 	//last time made a creep happen
 	 	this.lastCreep = new Date().getTime();
 
+	 	this.paused = false;
 	 	//so it constantly updates
 	 	this.alwaysUpdate = true;
 	 },
+
 	 update: function(){
 	 	//keeping track of time
 	 	this.now = new Date().getTime();
@@ -508,6 +514,15 @@ game.GameManager = Object.extend({
 			me.game.world.removeChild(game.data.player);
 			//this respawns the player in 10,0
 	 		me.state.current().resetPlayer(10, 0);
+	 }
+
+	 	//keeping track if you need creeps
+	 	//math.round checks and makes sure that you have amultiple of ten
+	 	//checking to be a sec  % checks if you have a multiple of ten 
+	 	//and checking if you spawn over and over again
+	 	if(Math.round(this.now/1000)%20 ===0 && (this.now - this.lastCreep >= 1000)){
+	 		game.data.gold += 1;
+	 		console.log("Current gold: " + game.data.gold);
 	 	}
 
 	 	//keeping track if you need creeps
