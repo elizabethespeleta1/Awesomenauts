@@ -39,6 +39,7 @@ var game = {
 		gameManager: "",
 		player: "",
 
+		//starts experience and gold at 0
 		exp: 0,
 		gold: 0,
 		exp1: 0,

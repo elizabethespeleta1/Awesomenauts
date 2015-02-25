@@ -193,8 +193,11 @@ game.PlayerEntity = me.Entity.extend({
 				//playerAttack is a variable that passes how much damage the base can take
 				this.lastHit = this.now;
 
+				//updates gold sx
 				if(response.b.health <= game.data.playerAttack){
+					//adds one goldfor creep kill
 					game.data.gold += 1;
+					//shows the gold update in the console
 					console.log("Current gold: " + game.data.gold);
 				}
 
@@ -499,6 +502,7 @@ game.GameManager = Object.extend({
 	 	//last time made a creep happen
 	 	this.lastCreep = new Date().getTime();
 
+	 	//variable for pausing game 
 	 	this.paused = false;
 	 	//so it constantly updates
 	 	this.alwaysUpdate = true;
@@ -516,12 +520,12 @@ game.GameManager = Object.extend({
 	 		me.state.current().resetPlayer(10, 0);
 	 }
 
-	 	//keeping track if you need creeps
-	 	//math.round checks and makes sure that you have amultiple of ten
-	 	//checking to be a sec  % checks if you have a multiple of ten 
-	 	//and checking if you spawn over and over again
+	 	//does it every 20 seconds and makes sure it doesnt happen all the time (this.now - this.lastCreep)
+	 	//only get gold every other creep
 	 	if(Math.round(this.now/1000)%20 ===0 && (this.now - this.lastCreep >= 1000)){
+	 		//add gold per creep kill
 	 		game.data.gold += 1;
+	 		//keep track of gold
 	 		console.log("Current gold: " + game.data.gold);
 	 	}
 
