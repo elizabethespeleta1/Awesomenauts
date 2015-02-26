@@ -89,41 +89,9 @@ game.PlayerEntity = me.Entity.extend({
 		//updating the time
 		this.now = new Date().getTime();
 
-		//runs so you can die
-		if (this.health <= 0){
-			//allows you to die
-			this.dead = true;
-		}
+		this.dead = checkIfDead();
 
-		//checking if the right key is pressed
-		if(me.input.isKeyPressed("right")){
-			//if the key is pressed this is what happens
-			//adds the position of my x by the velocity defined above in
-			//setVelocity() and multiplying it by me.timer.tick
-			//me.timer.tick makes the movement look smooth
-			this.body.vel.x += this.body.accel.x * me.timer.tick;
-			//this is so the character faces the right when moving to the right (if this isnt here the character faces the left when walking to the right)
-			this.facing = "right";
-			this.flipX(true);
-		}
-		//if you stop pressing the right key
-		else if (me.input.isKeyPressed("left")){
-			this.body.vel.x -=this.body.accel.x * me.timer.tick;
-			//this is so the character faces the left when moving to the left (if this isnt here the character faces the right when walking to the left)
-			this.facing = "left";
-			this.flipX(false);
-		}
-		else{
-			//it wont move
-			this.body.vel.x = 0;
-		}
-
-		//if you press jump && make sure you dont double jumping // your not already jumping and your not falling 
-		if(me.input.isKeyPressed("jump") && !this.body.falling && !this.body.jumping){
-			//if it runs you can jump
-			this.body.jumping = true;
-			this.body.vel.y -= this.body.accel.y * me.timer.tick;
-		} 
+		this.checkKeyPressesAndMove();
 
 		//checking if attack is pressed
 		if(me.input.isKeyPressed("attack")){
@@ -166,6 +134,59 @@ game.PlayerEntity = me.Entity.extend({
 		//this is updating the super class so the animations can update
 		this._super(me.Entity, "update", [delta]);
 		return true;
+	},
+
+	checkIfDead: function(){
+		//runs so you can die
+		if (this.health <= 0){
+			//allows you to die
+			return true;
+		}
+			return false;
+	},
+
+	checkKeyPressesAndMove: function(){
+		//checking if the right key is pressed
+		if(me.input.isKeyPressed("right")){
+			//if the key is pressed  it runs moveRight()
+			this.moveRight();
+		}
+		//if you stop pressing the right key
+		else if (me.input.isKeyPressed("left")){
+			this.moveLeft();
+		}
+		else{
+			//it wont move
+			this.body.vel.x = 0;
+		}
+
+		//if you press jump && make sure you dont double jumping // your not already jumping and your not falling 
+		if(me.input.isKeyPressed("jump") && !this.body.falling && !this.body.jumping){
+			this.jump();	
+		} 
+	},
+
+	moveRight: function(){
+		//adds the position of my x by the velocity defined above in
+		//setVelocity() and multiplying it by me.timer.tick
+		//me.timer.tick makes the movement look smooth
+		this.body.vel.x += this.body.accel.x * me.timer.tick;
+		//this is so the character faces the right when moving to the right (if this isnt here the character faces the left when walking to the right)
+		this.facing = "right";
+		this.flipX(true);	
+	},
+
+	moveLeft: function(){
+		this.body.vel.x -=this.body.accel.x * me.timer.tick;
+		//this is so the character faces the left when moving to the left (if this isnt here the character faces the right when walking to the left)
+		this.facing = "left";
+		this.flipX(false);
+	},
+
+	jump:function(){
+		//if it runs you can jump
+		this.body.jumping = true;
+		this.body.vel.y -= this.body.accel.y * me.timer.tick;
 	},
 
 	//this function makes your player lose health
