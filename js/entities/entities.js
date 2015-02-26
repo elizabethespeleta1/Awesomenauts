@@ -136,6 +136,7 @@ game.PlayerEntity = me.Entity.extend({
 		return true;
 	},
 
+	//function that checks if the player is dead and returns a value
 	checkIfDead: function(){
 		//runs so you can die
 		if (this.health <= 0){
@@ -145,6 +146,7 @@ game.PlayerEntity = me.Entity.extend({
 			return false;
 	},
 
+	//checks the key presses and movement
 	checkKeyPressesAndMove: function(){
 		//checking if the right key is pressed
 		if(me.input.isKeyPressed("right")){
@@ -159,13 +161,13 @@ game.PlayerEntity = me.Entity.extend({
 			//it wont move
 			this.body.vel.x = 0;
 		}
-
 		//if you press jump && make sure you dont double jumping // your not already jumping and your not falling 
 		if(me.input.isKeyPressed("jump") && !this.body.falling && !this.body.jumping){
 			this.jump();	
 		} 
 	},
 
+	//moves you right when you click the right
 	moveRight: function(){
 		//adds the position of my x by the velocity defined above in
 		//setVelocity() and multiplying it by me.timer.tick
@@ -176,6 +178,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.flipX(true);	
 	},
 
+	//moves you to the left when key is pressed
 	moveLeft: function(){
 		this.body.vel.x -=this.body.accel.x * me.timer.tick;
 		//this is so the character faces the left when moving to the left (if this isnt here the character faces the right when walking to the left)
@@ -183,6 +186,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.flipX(false);
 	},
 
+	//makes you jump when key is pressed
 	jump:function(){
 		//if it runs you can jump
 		this.body.jumping = true;
