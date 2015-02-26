@@ -11,7 +11,6 @@ game.PlayerEntity = me.Entity.extend({
 		this.type="PlayerEntity";
 
 		this.setFlags();
-
 		this.addAnimation();
 		
 		//this is the animation it starts at (facing the screen)
@@ -39,6 +38,7 @@ game.PlayerEntity = me.Entity.extend({
 		}]);
 	},
 
+	//function for the player timers
 	setPlayerTimers: function(){
 		//this keeps track of time
 		this.now = new Date().getTime();
@@ -48,6 +48,8 @@ game.PlayerEntity = me.Entity.extend({
 		this.lastAttack = new Date().getTime();
 	},
 
+	//anything that affects the character
+	//like how good you want the heros to be ,speed, health,defense,range or attacking
 	setAttributes: function(){
 		//setting the players health , using the variable (playerHealth)  made in game.js
 		this.health = game.data.playerHealth;
@@ -59,6 +61,8 @@ game.PlayerEntity = me.Entity.extend({
 		this.attack = game.data.playerAttack;
 	},
 
+	//flags are things that are one way or another
+	//setting the flags
 	setFlags: function(){
 		//keep track of which direction your character is going
 		this.facing = "right";
@@ -67,6 +71,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.dead = false;
 	},
 
+	//code that adds animation to the player 
 	addAnimation: function(){
 		//me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH); makes it so the character is always being followed on the screen
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
