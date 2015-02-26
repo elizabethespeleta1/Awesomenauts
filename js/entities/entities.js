@@ -2,6 +2,22 @@
 //game.PlayerEntity is a class that is why there both capital
 //me.Entity is a class
 game.PlayerEntity = me.Entity.extend({
+	init: function(x, y, settings){
+		this.setSuper();
+		this.setPlayerTimers();
+		this.setAttributes();
+
+		//setting a type
+		this.type="PlayerEntity";
+
+		this.setFlags();
+
+		this.addAnimation();
+		
+		//this is the animation it starts at (facing the screen)
+		this.renderable.setCurrentAnimation("idle");
+	},
+
 	//this is a constructer function
 	//melon js uses this contructer on most things for setutp
 	//you need x y and settings
@@ -10,7 +26,7 @@ game.PlayerEntity = me.Entity.extend({
 	//getShape function is returning a rectangle shape
 	//the numbers of the width and height of the box
 	//polygon is a method 
-	init: function(x, y, settings){
+	setSuper: function(){
 		this._super(me.Entity, 'init', [x, y, {
 			image: "player", 
 			width: 64,
@@ -21,10 +37,18 @@ game.PlayerEntity = me.Entity.extend({
 				return(new me.Rect(0, 0, 64, 64)).toPolygon();
 			}
 		}]);
+	},
 
-		//setting a type
-		this.type="PlayerEntity";
+	setPlayerTimers: function(){
+		//this keeps track of time
+		this.now = new Date().getTime();
+		this.lastHit = this.now;
 
+		//this allows you to have a hit delay
+		this.lastAttack = new Date().getTime();
+	},
+
+	setAttributes: function(){
 		//setting the players health , using the variable (playerHealth)  made in game.js
 		this.health = game.data.playerHealth;
 
@@ -32,21 +56,18 @@ game.PlayerEntity = me.Entity.extend({
 		//setting the velocity using the variable made in game.js (playerMoveSpeed)
 		//y is 20 so character is on the floor
 		this.body.setVelocity(game.data.playerMoveSpeed, 20);
+		this.attack = game.data.playerAttack;
+	},
 
+	setFlags: function(){
 		//keep track of which direction your character is going
 		this.facing = "right";
 
-		//this keeps track of time
-		this.now = new Date().getTime();
-
-		this.lastHit = this.now;
 		//sets to not dead
 		this.dead = false;
+	},
 
-		this.attack = game.data.playerAttack;
-		//this allows you to have a hit delay
-		this.lastAttack = new Date().getTime();
-
+	addAnimation: function(){
 		//me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH); makes it so the character is always being followed on the screen
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
@@ -57,8 +78,6 @@ game.PlayerEntity = me.Entity.extend({
 		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
 		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
 
-		//this is the animation it starts at (facing the screen)
-		this.renderable.setCurrentAnimation("idle");
 	},
 
 	update: function(delta){
