@@ -66,9 +66,9 @@ game.PlayerEntity = me.Entity.extend({
 	setFlags: function(){
 		//keep track of which direction your character is going
 		this.facing = "right";
-
 		//sets to not dead
 		this.dead = false;
+		this.attacking = false;
 	},
 
 	//code that adds animation to the player 
@@ -88,40 +88,9 @@ game.PlayerEntity = me.Entity.extend({
 	update: function(delta){
 		//updating the time
 		this.now = new Date().getTime();
-
 		this.dead = checkIfDead();
-
 		this.checkKeyPressesAndMove();
-
-		//checking if attack is pressed
-		if(me.input.isKeyPressed("attack")){
-			//runs if your not attacking
-			if(!this.renderable.isCurrentAnimation("attack")){
-				//sets the current animation to attack and once that is over
-				//goes back to the idle animation
-				this.renderable.setCurrentAnimation("attack", "idle");
-				//makes it so that the next time we start the animation this sequence we begin
-				//from the first animation, not wherever we left off when we
-				//switched to another animation
-				this.renderable.setAnimationFrame();
-			}
-		}
-		//this will run only if the character is moving
-//	//	//and if the attack animation is not going
-		else if(this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")){
-			//this if statement checks what happening with the character
-			////if its not moving it'll walk
-			//if it isnt it'll walk
-			if(!this.renderable.isCurrentAnimation("walk")){
-				this.renderable.setCurrentAnimation("walk");
-			}
-		}
-		//this will run if the velocity is not 0
-		//this will make the walking stop
-		//making sure your not attacking
-		else if(!this.renderable.isCurrentAnimation("attack")){
-			this.renderable.setCurrentAnimation("idle");
-		}
+		this.setAnimation();
 
 		//sets up the collsions
 		//passing a parameter to collideHandler about the player
@@ -165,6 +134,7 @@ game.PlayerEntity = me.Entity.extend({
 		if(me.input.isKeyPressed("jump") && !this.body.falling && !this.body.jumping){
 			this.jump();	
 		} 
+		this.attacking = me.input.isKeyPressed("attack");
 	},
 
 	//moves you right when you click the right
@@ -191,6 +161,38 @@ game.PlayerEntity = me.Entity.extend({
 		//if it runs you can jump
 		this.body.jumping = true;
 		this.body.vel.y -= this.body.accel.y * me.timer.tick;
+	},
+
+	setAnimation: function(){
+		//checking if attack is pressed
+		if(this.attacking)){
+			//runs if your not attacking
+			if(!this.renderable.isCurrentAnimation("attack")){
+				//sets the current animation to attack and once that is over
+				//goes back to the idle animation
+				this.renderable.setCurrentAnimation("attack", "idle");
+				//makes it so that the next time we start the animation this sequence we begin
+				//from the first animation, not wherever we left off when we
+				//switched to another animation
+				this.renderable.setAnimationFrame();
+			}
+		}
+		//this will run only if the character is moving
+		//and if the attack animation is not going
+		else if(this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")){
+			//this if statement checks what happening with the character
+			////if its not moving it'll walk
+			//if it isnt it'll walk
+			if(!this.renderable.isCurrentAnimation("walk")){
+				this.renderable.setCurrentAnimation("walk");
+			}
+		}
+		//this will run if the velocity is not 0
+		//this will make the walking stop
+		//making sure your not attacking
+		else if(!this.renderable.isCurrentAnimation("attack")){
+			this.renderable.setCurrentAnimation("idle");
+		}
 	},
 
 	//this function makes your player lose health
