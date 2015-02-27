@@ -68,6 +68,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.facing = "right";
 		//sets to not dead
 		this.dead = false;
+		//setting attacking to false
 		this.attacking = false;
 	},
 
@@ -163,6 +164,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.body.vel.y -= this.body.accel.y * me.timer.tick;
 	},
 
+	//function for setting animation
 	setAnimation: function(){
 		//checking if attack is pressed
 		if(this.attacking)){
