@@ -210,33 +210,40 @@ game.PlayerEntity = me.Entity.extend({
 		//in this case the enemy base entity
 		//response a is related to the character
 		if(response.b.type==='EnemyBaseEntity'){
-			//runs if your running into the enemy base
-			//var ydif is the difference between players y postion and
-			// bases y position
-			//var xdif is the difference between players y postion and
-			// bases y position
-			var ydif = this.pos.y - response.b.pos.y;
-			var xdif = this.pos.x - response.b.pos.x;
+			this.collideWithEnemyBase(response);
+		}
+		//checking if the player(response.b.type) is attacking creeps
+		else if (response.b.type==='EnemyCreep'){
+			this.collideWithEnemyCreep(response);
+		}
+	},
+
+	collideWithEnemyBase: function(response){
+		//runs if your running into the enemy base
+		//var ydif is the difference between players y postion and
+		// bases y position
+		//var xdif is the difference between players y postion and
+		// bases y position
+		var ydif = this.pos.y - response.b.pos.y;
+		var xdif = this.pos.x - response.b.pos.x;
 			
-			//runs if ydifference<-40 && xdif< 70 && xdif>-35
-			//allows you to stand on base
-			if(ydif<-40 && xdif< 70 && xdif>-35){
-				this.body.falling = false;
-				this.body.vel.y = -1;
-			}
+		//runs if ydifference<-40 && xdif< 70 && xdif>-35
+		//allows you to stand on base
+		if(ydif<-40 && xdif< 70 && xdif>-35){
+			this.body.falling = false;
+			this.body.vel.y = -1;
+		}
 			//runs if your approaching/facing the base from the right
 			// && if the xdif is less than zero
 			else if(xdif>-35 && this.facing==='right' && (xdif<0)){
 				//stops the character
 				this.body.vel.x = 0;
 				//makes sure the player cant break through the base
-				//this.pos.x = this.pos.x -1;
 			}
 			//runs if your approaching/facing the base from the left
 			else if(xdif<70 && this.facing==='left' && xdif>0){
 				//stops the character
 				this.body.vel.x = 0;
-				//this.pos.x = this.pos.x +1;
 			}
 			//checking if your hitting the enemy base
 			//playerAttackTimer lets you hit quicker/ slower (variable made in game.js)
@@ -245,36 +252,30 @@ game.PlayerEntity = me.Entity.extend({
 				//updating last hit aka time
 				//playerAttack is a variable that passes how much damage the base can take
 				this.lastHit = this.now;
-
-				//updates gold sx
-				if(response.b.health <= game.data.playerAttack){
-					//adds one goldfor creep kill
-					game.data.gold += 1;
-					//shows the gold update in the console
-					console.log("Current gold: " + game.data.gold);
-				}
-
-				response.b.loseHealth(game.data.playerAttack);
 			}
+	},
 
-		}
-
-		//checking if the player(response.b.type) is attacking creeps
-		else if (response.b.type==='EnemyCreep'){
-			//variable for x difference and y difference of the player and creep
+	collideWithEnemyCreep: function(response){
+		//variable for x difference and y difference of the player and creep
 			var xdif = this.pos.x - response.b.pos.x;
 			var ydif = this.pos.y - response.b.pos.y;
 
-			//runs if the xdif is > 0
+			this.stopMovement(xdif);
+			
+			if(this.checkAttack(xdif, ydif)){
+				this.hitCreep(response);
+			};
+			
+	},
+
+	stopMovement: function(xdif){
+		//runs if the xdif is > 0
 			if(xdif > 0){
 				//keeps the player from walking through the enemy
-				//this.pos.x = this.pos.x +1;
-
 				//keeps track of where your facing
 				if(this.facing==="left"){
 					this.body.vel.x = 0;
 				}
-			//runs if x < 0
 			}
 			else{
 				//keeps the player from walking through the enemy
@@ -284,9 +285,10 @@ game.PlayerEntity = me.Entity.extend({
 					this.body.vel.x = 0;
 				}
 			}
+	},
 
-		
-			//this.renderable.isCurrentAnimation("attack") means this will run only if your attacking , 
+	checkAttack: function(xdif, ydif){
+		//this.renderable.isCurrentAnimation("attack") means this will run only if your attacking , 
 			//this.now-this.lastHit >=playerAttackTimer (playerAttackTimer was made in game.js) is checking when you last hit was and if it was more than a second ago
 			//((xdif>0 && this.facing==="left") || ((xdif<0) && this.facing==="right")) makes it so you cant attack the enemy when your not facing it 
 			// (Math.abs(ydif)<= 40) abs means absolute value makes it so you cant attack it above its head
@@ -297,9 +299,20 @@ game.PlayerEntity = me.Entity.extend({
 			){
 				//updating the timer
 				this.lastHit = this.now;
-				//player makes the creep lose health by one when attacking
-				response.b.loseHealth(game.data.playerAttack);
+				return true;
 			}
+			return false;
+	},
+
+	hitCreep: function(response){
+		//updates gold sx
+		if(response.b.health <= game.data.playerAttack){
+			//adds one goldfor creep kill
+			game.data.gold += 1;
+			//shows the gold update in the console
+			console.log("Current gold: " + game.data.gold);
 		}
+		//player makes the creep lose health by one when attacking
+		response.b.loseHealth(game.data.playerAttack);
 	}
 });
