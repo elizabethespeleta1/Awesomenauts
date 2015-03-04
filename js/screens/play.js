@@ -14,8 +14,13 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		//adding the gamemanager to the world
 		//0 because it doesnt need to be visible
-		var gamemanager = me.pool.pull("GameManager", 0 , 0, {} );
-		me.game.world.addChild(gamemanager, 0);
+		var gameTimerManager = me.pool.pull("GameTimerManager", 0 , 0, {} );
+		me.game.world.addChild(gameTimerManager, 0);
+
+		//adding the HeroDeathManager to the world
+		//0 because it doesnt need to be visible
+		var HeroDeathManager = me.pool.pull("HeroDeathManager", 0 , 0, {} );
+		me.game.world.addChild(HeroDeathManager, 0);
 
 		//bind the key for movement
 		//calling the key for right left jumping and attacking
@@ -33,7 +38,7 @@ game.PlayScreen = me.ScreenObject.extend({
 	/**
 	 *  action to perform when leaving this screen (state change)
 	 */
-	 
+
 	onDestroyEvent: function() {
 		// remove the HUD from the game world
 		me.game.world.removeChild(this.HUD);

@@ -36,7 +36,8 @@ var game = {
 		creepMoveSpeed: 5,
 
 		//help keep track of these 
-		gameManager: "",
+		gameTimerManager: "",
+		HeroDeathManager: "",
 		player: "",
 
 		//starts experience and gold at 0
@@ -87,7 +88,8 @@ var game = {
 		me.pool.register("PlayerBase", game.PlayerBaseEntity);
 		me.pool.register("EnemyBase", game.EnemyBaseEntity);
 		me.pool.register("EnemyCreep", game.EnemyCreep, true);
-		me.pool.register("GameManager", game.GameManager);
+		me.pool.register("GameTimerManager", game.GameTimerManager);
+		me.pool.register("HeroDeathManager", game.HeroDeathManager);
 
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
