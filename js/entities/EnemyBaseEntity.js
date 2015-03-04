@@ -40,6 +40,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 		return true;
 	},
 
+
 	onCollision: function(){
 
 	},

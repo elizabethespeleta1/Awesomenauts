@@ -3,7 +3,7 @@
 //me.Entity is a class
 game.PlayerEntity = me.Entity.extend({
 	init: function(x, y, settings){
-		this.setSuper();
+		this.setSuper(x, y);
 		this.setPlayerTimers();
 		this.setAttributes();
 
@@ -25,7 +25,7 @@ game.PlayerEntity = me.Entity.extend({
 	//getShape function is returning a rectangle shape
 	//the numbers of the width and height of the box
 	//polygon is a method 
-	setSuper: function(){
+	setSuper: function(x,y){
 		this._super(me.Entity, 'init', [x, y, {
 			image: "player", 
 			width: 64,
@@ -64,10 +64,10 @@ game.PlayerEntity = me.Entity.extend({
 	//flags are things that are one way or another
 	//setting the flags
 	setFlags: function(){
-		//keep track of which direction your character is going
-		this.facing = "right";
 		//sets to not dead
 		this.dead = false;
+		//keep track of which direction your character is going
+		this.facing = "right";
 		//setting attacking to false
 		this.attacking = false;
 	},
@@ -83,13 +83,12 @@ game.PlayerEntity = me.Entity.extend({
 		this.renderable.addAnimation("idle", [78]);
 		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
 		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
-
 	},
 
 	update: function(delta){
 		//updating the time
 		this.now = new Date().getTime();
-		this.dead = checkIfDead();
+		this.dead = this.checkIfDead();
 		this.checkKeyPressesAndMove();
 		this.setAnimation();
 
@@ -167,7 +166,7 @@ game.PlayerEntity = me.Entity.extend({
 	//function for setting animation
 	setAnimation: function(){
 		//checking if attack is pressed
-		if(this.attacking)){
+		if(this.attacking){
 			//runs if your not attacking
 			if(!this.renderable.isCurrentAnimation("attack")){
 				//sets the current animation to attack and once that is over
@@ -203,7 +202,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.health = this.health - damage;
 	},
 
-	//passing a parameter
+	//passing a parameter(response)
 	//collideHandler is function and responding to a collision
 	collideHandler: function(response){
 		//runs when response b is whatever your colliding with
@@ -233,26 +232,26 @@ game.PlayerEntity = me.Entity.extend({
 			this.body.falling = false;
 			this.body.vel.y = -1;
 		}
-			//runs if your approaching/facing the base from the right
-			// && if the xdif is less than zero
-			else if(xdif>-35 && this.facing==='right' && (xdif<0)){
-				//stops the character
-				this.body.vel.x = 0;
-				//makes sure the player cant break through the base
-			}
-			//runs if your approaching/facing the base from the left
-			else if(xdif<70 && this.facing==='left' && xdif>0){
-				//stops the character
-				this.body.vel.x = 0;
-			}
-			//checking if your hitting the enemy base
-			//playerAttackTimer lets you hit quicker/ slower (variable made in game.js)
-			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >=1000 >= game.data.playerAttackTimer){
-				//if it runs you lose health
-				//updating last hit aka time
-				//playerAttack is a variable that passes how much damage the base can take
-				this.lastHit = this.now;
-			}
+		//runs if your approaching/facing the base from the right
+		// && if the xdif is less than zero
+		else if(xdif>-35 && this.facing==='right' && (xdif<0)){
+			//stops the character
+			this.body.vel.x = 0;
+		}
+		//runs if your approaching/facing the base from the left
+		else if(xdif<70 && this.facing==='left' && xdif>0){
+			//stops the character
+			this.body.vel.x = 0;
+		}
+		//checking if your hitting the enemy base
+		//playerAttackTimer lets you hit quicker/ slower (variable made in game.js)
+		if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= game.data.playerAttackTimer && (Math.abs(ydif) <=40) && (((xdif>0) && this.facing ==="left") || ((xdif) && this.facing==="right")) ){
+			//updating last hit aka time
+			//playerAttack is a variable that passes how much damage the base can take
+			this.lastHit = this.now;
+			//player makes the creep lose health by one when attacking
+			response.b.loseHealth(game.data.playerAttack);
+		}
 	},
 
 	collideWithEnemyCreep: function(response){

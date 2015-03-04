@@ -19,7 +19,7 @@ var game = {
 		// variable for how many enemy creeps there are	
 		enemyCreepAttack: 1,
 		// variable for how many players there are	
-		playerAttack: 1,
+		playerAttack: 100,
 
 		//for orc
 //		orcBaseDamage: 10,
