@@ -51,7 +51,8 @@ game.GameTimerManager = Object.extend({
 
 game.HeroDeathManager = Object.extend({
 	init: function (x, y , settings){
-		//so it constantly updates
+		//so it constantly updates not over
+		//setting the game to
 	 	this.alwaysUpdate = true;
 	 	this.gameOver = false;
 	},
@@ -76,16 +77,19 @@ game.ExperienceManager = Object.extend({
 	},
 
 	update:function(){
-		//runs if you win
+		//runs if you win and if the game isnt over
 		if(game.data.win ===true && !this.gameOver){
 			//adds experience when you win
+			//so it constantly updates over
 			game.data.exp += 10;
 			this.gameOver = true;
 		}
-		//runs if you lose
+		//runs if you loseand if the game isnt over
 		else if (game.data.win === false&& !this.gameOver){
 			//adds experience when you win
+			//so it constantly updates over
 			game.data.exp += 1;
+			this.gameOver = true;
 		}
 		console.log(game.data.exp);
 
