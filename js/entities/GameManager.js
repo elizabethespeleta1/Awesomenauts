@@ -53,6 +53,7 @@ game.HeroDeathManager = Object.extend({
 	init: function (x, y , settings){
 		//so it constantly updates
 	 	this.alwaysUpdate = true;
+	 	this.gameOver = false;
 	},
 	update: function(){
 		//removes player
@@ -76,15 +77,17 @@ game.ExperienceManager = Object.extend({
 
 	update:function(){
 		//runs if you win
-		if(game.data.win ===true){
+		if(game.data.win ===true && !this.gameOver){
 			//adds experience when you win
 			game.data.exp += 10;
+			this.gameOver = true;
 		}
 		//runs if you lose
-		else if (game.data.win === false){
+		else if (game.data.win === false&& !this.gameOver){
 			//adds experience when you win
 			game.data.exp += 1;
 		}
+		console.log(game.data.exp);
 
 		return true;
 	}
