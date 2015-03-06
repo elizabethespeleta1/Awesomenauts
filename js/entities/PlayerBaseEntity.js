@@ -40,6 +40,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 		if(this.health<=0){
 			//if its true your character is dead 
 			this.broken = true;
+			game.data.win = false;
 			this.renderable.setCurrentAnimation("broken");
 		}
 		//then it updates delta (the time)

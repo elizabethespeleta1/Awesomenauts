@@ -62,5 +62,25 @@ game.HeroDeathManager = Object.extend({
 			//this respawns the player in 10,0
 	 		me.state.current().resetPlayer(10, 0);
 		}
+
+		return true;
 	}
 });
+
+game.ExperienceManager = Object.extend({
+	init: function(x,y,settings){
+		this.alwaysUpdate = true;
+	},
+
+	update:function(){
+		if(game.data.win ===true){
+			game.data.exp += 10;
+		}
+		else if (game.data.win === false){
+			game.data.exp += 1;
+		}
+		
+		return true;
+	}
+});
+

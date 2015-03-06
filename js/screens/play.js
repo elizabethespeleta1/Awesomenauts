@@ -22,6 +22,9 @@ game.PlayScreen = me.ScreenObject.extend({
 		var HeroDeathManager = me.pool.pull("HeroDeathManager", 0 , 0, {} );
 		me.game.world.addChild(HeroDeathManager, 0);
 
+		var experienceManager = me.pool.pull("experienceManager", 0 , 0, {} );
+		me.game.world.addChild(experienceManager, 0);
+
 		//bind the key for movement
 		//calling the key for right left jumping and attacking
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
