@@ -39,6 +39,8 @@ game.PlayerBaseEntity = me.Entity.extend({
 		//this runs when the health is less than or equal to zero
 		if(this.health<=0){
 			//if its true your character is dead 
+			//if the your base breaks first , sets game to not won
+			//setting base to brokem
 			this.broken = true;
 			game.data.win = false;
 			this.renderable.setCurrentAnimation("broken");

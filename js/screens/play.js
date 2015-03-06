@@ -22,6 +22,8 @@ game.PlayScreen = me.ScreenObject.extend({
 		var HeroDeathManager = me.pool.pull("HeroDeathManager", 0 , 0, {} );
 		me.game.world.addChild(HeroDeathManager, 0);
 
+		//adding experienceManager to the world
+		//0  because it doesnt need to be visible
 		var experienceManager = me.pool.pull("experienceManager", 0 , 0, {} );
 		me.game.world.addChild(experienceManager, 0);
 

@@ -31,6 +31,9 @@ game.EnemyBaseEntity = me.Entity.extend({
 
 	update:function(delta) {
 		if(this.health<=0){
+			//sets to base brokem
+			//if the enemy breaks first sets win to true
+			//setting base to broken
 			this.broken = true;
 			game.data.win = true;
 			this.renderable.setCurrentAnimation("broken");
