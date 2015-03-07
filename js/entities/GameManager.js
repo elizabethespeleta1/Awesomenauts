@@ -80,12 +80,12 @@ game.ExperienceManager = Object.extend({
 		//runs if you win and if the game isnt over
 		if(game.data.win ===true && !this.gameOver){
 			//runs gameOver sending the parameter true
-			this.gameOver(true):
+			this.gameOver(true);
 		}
 		//runs if you lose and if the game isnt over
 		else if (game.data.win === false&& !this.gameOver){
 			//runs gameOver sending the parameter false
-			this.gameOver(false):
+			this.gameOver(false);
 		}
 		return true;
 	},
