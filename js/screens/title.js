@@ -45,7 +45,7 @@ game.TitleScreen = me.ScreenObject.extend({
 			}
 		})));
 
-			//adding text to the load screen
+		//continuing the game
 		me.game.world.addChild(new (me.Renderable.extend({
 			init: function(){
 				//super class is passing the renderable the placement of the text
@@ -71,7 +71,7 @@ game.TitleScreen = me.ScreenObject.extend({
 			newGame: function(){
 				//makes sure your not listening for a click later in the game
 				me.input.releasePointerEvent('pointerdown', this);
-				//starting the game
+				//continueing the game
 				me.state.change(me.state.PLAY);
 			}
 		})));
