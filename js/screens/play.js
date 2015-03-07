@@ -8,6 +8,8 @@ game.PlayScreen = me.ScreenObject.extend({
 		// loadLevel loads the level
 		game.data.score = 0;
 		me.levelDirector.loadLevel("level01");
+		console.log(game.data.exp);
+		console.log(game.data.exp2);
 
 		//spawns the player
 		this.resetPlayer(0,420);

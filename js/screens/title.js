@@ -69,6 +69,12 @@ game.TitleScreen = me.ScreenObject.extend({
 			//function for a new game
 			//for starting a new game
 			newGame: function(){
+				game.data.exp = me.save.exp;
+				game.data.exp1 = me.save.exp1;
+				game.data.exp2 = me.save.exp2;
+				game.data.exp3 = me.save.exp3;
+				game.data.exp4 = me.save.exp4;
+
 				//makes sure your not listening for a click later in the game
 				me.input.releasePointerEvent('pointerdown', this);
 				//continueing the game

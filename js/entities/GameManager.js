@@ -74,16 +74,17 @@ game.ExperienceManager = Object.extend({
 	init: function(x,y,settings){
 		//constantly updates
 		this.alwaysUpdate = true;
+		this.gameover = false;
 	},
 
 	update:function(){
 		//runs if you win and if the game isnt over
-		if(game.data.win ===true && !this.gameOver){
+		if(game.data.win ===true && !this.gameover){
 			//runs gameOver sending the parameter true
 			this.gameOver(true);
 		}
 		//runs if you lose and if the game isnt over
-		else if (game.data.win === false&& !this.gameOver){
+		else if (game.data.win === false&& !this.gameover){
 			//runs gameOver sending the parameter false
 			this.gameOver(false);
 		}
@@ -103,8 +104,8 @@ game.ExperienceManager = Object.extend({
 		}
 		//so it constantly updates over
 		//saves experience
-		this.gameOver = true;
-		me.save.exp = game.data.exp;
+		this.gameover = true;
+		
 	}
 });
 

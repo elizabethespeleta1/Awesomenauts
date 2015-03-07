@@ -7,9 +7,9 @@ var game = {
 		// variable for the score
 		score : 0,
 		// variable for the enemy base health
-		enemyBaseHealth : 10,
+		enemyBaseHealth : 1,
 		// variable for the player base health
-		playerBaseHealth: 100,
+		playerBaseHealth: 1,
 		// variable for the enemy creep health
 		enemyCreepHealth: 10,
 		// variable for the player health
@@ -67,6 +67,9 @@ var game = {
 	}
 
 	me.save.add({exp:0, exp1:0, exp2:0, exp3:0, exp4:0});
+
+	console.log(game.data.exp);
+	console.log(game.data.exp2);
 
 	// Initialize the audio.
 	me.audio.init("mp3,ogg");
