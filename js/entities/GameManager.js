@@ -54,7 +54,7 @@ game.HeroDeathManager = Object.extend({
 		//so it constantly updates not over
 		//setting the game to
 	 	this.alwaysUpdate = true;
-	 	this.gameOver = false;
+	 	this.gameover = false;
 	},
 	update: function(){
 		//removes player
@@ -105,7 +105,7 @@ game.ExperienceManager = Object.extend({
 		//so it constantly updates over
 		//saves experience
 		this.gameover = true;
-		
+		me.save.exp = game.data.exp;
 	}
 });
 

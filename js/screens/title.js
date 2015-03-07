@@ -69,6 +69,7 @@ game.TitleScreen = me.ScreenObject.extend({
 			//function for a new game
 			//for starting a new game
 			newGame: function(){
+				//save the experience from the last game
 				game.data.exp = me.save.exp;
 				game.data.exp1 = me.save.exp1;
 				game.data.exp2 = me.save.exp2;
