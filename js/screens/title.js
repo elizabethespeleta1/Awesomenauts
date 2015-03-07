@@ -15,6 +15,7 @@ game.TitleScreen = me.ScreenObject.extend({
 				this._super(me.Renderable, 'init', [270, 240, 300, 50]);
 				//this is the font size n color of the text
 				this.font = new me.Font("Arial", 46, "white");
+				//listening for mouse to be clicked on , when it is clicked it starts a new game
 				me.input.registerPointerEvent('pointerdown', this, this.newGame.bind(this), true);
 			},
 
@@ -28,13 +29,18 @@ game.TitleScreen = me.ScreenObject.extend({
 				return true;
 			},
 
+			//function for a new game
+			//for starting a new game
 			newGame: function(){
+				//makes sure your not listening for a click later in the game
+				//getting rid of old variables
 				me.input.releasePointerEvent('pointerdown', this);
 				me.save.remove('exp');
 				me.save.remove('exp1');
 				me.save.remove('exp2');
 				me.save.remove('exp3');
 				me.save.remove('exp4');
+				//starting the game
 				me.state.change(me.state.PLAY);
 			}
 		})));
