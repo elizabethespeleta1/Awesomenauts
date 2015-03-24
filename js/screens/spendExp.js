@@ -8,6 +8,7 @@ game.SpendExp = me.ScreenObject.extend({
 		//-10 puts in the back (its the z layer)
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('exp-screen')), -10); // TODO
 
+		//subscribing to events / binding keys
 		me.input.bindKey(me.input.KEY.F1, "F1");
 		me.input.bindKey(me.input.KEY.F2, "F2");
 		me.input.bindKey(me.input.KEY.F3, "F3");
@@ -25,6 +26,7 @@ game.SpendExp = me.ScreenObject.extend({
 			//draw is passing renderer
 			//this is the text that shows up
 			//numbers fix placement of text
+			//cost multiplies your level by ten
 			draw: function(renderer){
 				this.font.draw(renderer.getContext(), "Press F1-F4 TO BUY, F5 TO SKIP", this.pos.x, this.pos.y);
 				this.font.draw(renderer.getContext(), "CURRENT EXP: " + game.data.exp.toString(), this.pos.x + 100, this.pos.y + 50);
@@ -35,7 +37,8 @@ game.SpendExp = me.ScreenObject.extend({
 
 			}	
 		})));
-
+	
+	//making keys actually do something
 	this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge){
 		if(action === "F1"){
 
@@ -49,7 +52,9 @@ game.SpendExp = me.ScreenObject.extend({
 		else if(action === "F4"){
 
 		}
+		//if you press F5 this runs
 		else if(action === "F5"){
+			//continues the game
 			me.state.change(me.state.PLAY);
 		}
 	});
@@ -61,11 +66,13 @@ game.SpendExp = me.ScreenObject.extend({
 	 *  action to perform when leaving this screen (state change)
 	 */
 	onDestroyEvent: function() {
+		//unbinding keys to unregister
 		me.input.unbindKey(me.input.KEY.F1, "F1");
 		me.input.unbindKey(me.input.KEY.F2, "F2");
 		me.input.unbindKey(me.input.KEY.F3, "F3");
 		me.input.unbindKey(me.input.KEY.F4, "F4");
 		me.input.unbindKey(me.input.KEY.F5, "F5");
+		//unsubscribing the handler you subscribed to
 		me.event.unsubscribe(this.handler);
 	}
 });
