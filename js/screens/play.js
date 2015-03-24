@@ -26,7 +26,7 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		//adding experienceManager to the world
 		//0  because it doesnt need to be visible
-		var experienceManager = me.pool.pull("experienceManager", 0 , 0, {} );
+		var experienceManager = me.pool.pull("ExperienceManager", 0 , 0, {});
 		me.game.world.addChild(experienceManager, 0);
 
 		//bind the key for movement
