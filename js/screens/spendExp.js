@@ -19,6 +19,7 @@ game.SpendExp = me.ScreenObject.extend({
 
 			//draw is passing renderer
 			//this is the text that shows up
+			//numbers fix placement of text
 			draw: function(renderer){
 				this.font.draw(renderer.getContext(), "Press F1-F4 TO BUY, F5 TO SKIP", this.pos.x, this.pos.y);
 				this.font.draw(renderer.getContext(), "CURRENT EXP: " + game.data.exp.toString(), this.pos.x + 100, this.pos.y + 50);
