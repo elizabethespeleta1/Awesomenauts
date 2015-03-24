@@ -27,7 +27,7 @@ game.GameTimerManager = Object.extend({
 	 	//only get gold every other creep
 	 	if(Math.round(this.now/1000)%20 ===0 && (this.now - this.lastCreep >= 1000)){
 	 		//add gold per creep kill
-	 		game.data.gold += 1;
+	 		game.data.gold += (game.data.exp1+1);
 	 		//keep track of gold
 	 		console.log("Current gold: " + game.data.gold);
 	 	}
