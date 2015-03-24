@@ -40,6 +40,7 @@ game.TitleScreen = me.ScreenObject.extend({
 				me.save.remove('exp2');
 				me.save.remove('exp3');
 				me.save.remove('exp4');
+				me.save.add({exp:0, exp1:0, exp2:0, exp3:0, exp4:0});
 				//starting the game
 				me.state.change(me.state.PLAY);
 			}
@@ -71,13 +72,13 @@ game.TitleScreen = me.ScreenObject.extend({
 			newGame: function(){
 				//save the experience from the last game
 				//makes sure your not listening for a click later in the game
-				me.input.releasePointerEvent('pointerdown', this);
 				game.data.exp = me.save.exp;
 				game.data.exp1 = me.save.exp1;
 				game.data.exp2 = me.save.exp2;
 				game.data.exp3 = me.save.exp3;
 				game.data.exp4 = me.save.exp4;
 				me.input.releasePointerEvent('pointerdown', this);
+
 
 				//continueing the game
 				me.state.change(me.state.SPENDEXP);
