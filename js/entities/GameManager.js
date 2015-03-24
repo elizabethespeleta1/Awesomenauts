@@ -30,7 +30,7 @@ game.GameTimerManager = Object.extend({
 	 		game.data.gold += (game.data.exp1+1);
 	 		//keep track of gold
 	 		console.log("Current gold: " + game.data.gold);
-	 	}
+	 	} 
 	 },
 
 	 creepTimerCheck: function(){
