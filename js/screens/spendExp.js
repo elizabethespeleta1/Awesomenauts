@@ -15,7 +15,6 @@ game.SpendExp = me.ScreenObject.extend({
 		me.input.bindKey(me.input.KEY.F4, "F4");
 		me.input.bindKey(me.input.KEY.F5, "F5");
 
-		//variable for exp cost = level * 10
 		var exp1cost = ((game.data.exp1 + 1) * 10);
 
 		//adding text to the load screen
@@ -43,27 +42,23 @@ game.SpendExp = me.ScreenObject.extend({
 	
 	//making keys actually do something
 	this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge){
-		//runs if you press F1
 		if(action === "F1"){
-			//checking  if you have enough exp
 			if (game.data.exp >= exp1cost){
-				//adding more to it
 				game.data.exp1 +=1;
-				//substracting the exp cost
 				game.data.exp -= exp1cost;
-				//continues the game
 				me.state.change(me.state.PLAY);
 			}
 			else{
-				//tells you in the console if you dont have enough exp
 				console.log("not enough experience");
 			}
 		}
 		else if(action === "F2"){
 		}
 		else if(action === "F3"){
+
 		}
 		else if(action === "F4"){
+
 		}
 		//if you press F5 this runs
 		else if(action === "F5"){
