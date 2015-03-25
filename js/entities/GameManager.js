@@ -110,6 +110,7 @@ game.ExperienceManager = Object.extend({
 	}
 });
 
+//class for spending gold
 game.SpendGold = Object.extend({
 	init:function (x, y, settings){
 		//for time

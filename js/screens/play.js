@@ -36,6 +36,7 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		//bind the key for movement
 		//calling the key for right left jumping and attacking
+		//keys also for buying / buying skills
 		me.input.bindKey(me.input.KEY.B, "buy");
 		me.input.bindKey(me.input.KEY.Q, "skill1");
 		me.input.bindKey(me.input.KEY.W, "skill2");
