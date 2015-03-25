@@ -110,3 +110,19 @@ game.ExperienceManager = Object.extend({
 	}
 });
 
+game.SpendGold = Object.extend({
+	init:function (x, y, settings){
+		//for time
+	 	this.now = new Date().getTime;
+	 	//last time made a creep happen
+	 	this.lastBuy = new Date().getTime();
+	 	//variable for pausing game 
+	 	this.paused = false;
+	 	//so it constantly updates
+	 	this.alwaysUpdate = true;
+	},
+
+	update: function(){
+		return true;
+	}
+});
