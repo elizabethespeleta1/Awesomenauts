@@ -48,6 +48,7 @@ var game = {
 		exp3: 0,
 		exp4: 0,
 		win: "",
+		//for buy screen when paused
 		PausePos: "",
 		buyscreen: ""
 	},

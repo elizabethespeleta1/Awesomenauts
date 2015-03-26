@@ -121,7 +121,9 @@ game.SpendGold = Object.extend({
 	 	this.paused = false;
 	 	//so it constantly updates
 	 	this.alwaysUpdate = true;
+	 	//updates when paused
 	 	this.updateWhenPaused = true;
+	 	//sets to not buying when player
 	 	this.buying = false;
 	},
 
@@ -129,11 +131,15 @@ game.SpendGold = Object.extend({
 		//for time
 	 	this.now = new Date().getTime();
 
+	 	//when you press b and its after a second this runs
 		if(me.input.isKeyPressed("buy") && this.now-this.lastBuy >=1000){
+			//enables you to buy
 			this.lastBuy = this.now;
+			//if its not buying this runs
 			if(!this.buying){
 				this.startBuying();
 			}
+			//it is buying this happens
 			else{
 				this.stopBuying;
 			}
@@ -143,21 +149,34 @@ game.SpendGold = Object.extend({
 	},
 
 	startBuying: function(){
+		//updates when paused
+		//allows you to buy
 		this.buying = true;
+		//pauses
 		me.state.pause(me.state.PLAY);
+		//lets the game know where to go when paused
 		game.data.pausePos = me.game.viewport.localToWorld(0,0);
+		//puts gold screen up
 		game.data.buyscreen = new me.Sprite(game.data.pausePos.x, game.data.pausePos.y, me.loader.getImage('gold-screen'));
+		//updates when paused
 		game.data.buyscreen.updateWhenPaused = true;
+		//sets opactity for image
 		game.data.buyscreen.setOpacity(0.8);
+		//adds the image
 		me.game.world.addChild(game.data.buyscreen, 34);
+		//freezes player when paused
 		game.data.player.body.setVelocity(0,0);
 	},
 
 
 	stopBuying: function(){
+		//lets you stop buying
 		this.buying = false;
+		//resumes game
 		me.state.resume(me.state.PLAY);
+		//sets velocity again
 		game.data.player.body.setVelocity(game.data.playerMoveSpeed, 20);
+		//removes screen
 		me.game.world.removeChild(game.data.buyscreen);
 	}
 });
