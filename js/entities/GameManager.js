@@ -166,12 +166,14 @@ game.SpendGold = Object.extend({
 		me.game.world.addChild(game.data.buyscreen, 34);
 		//freezes player when paused
 		game.data.player.body.setVelocity(0,0);
+		//setting up keys
 		me.input.bindKey(me.input.KEY.F1, "F1", true);
 		me.input.bindKey(me.input.KEY.F2, "F2", true);
 		me.input.bindKey(me.input.KEY.F3, "F3", true);
 		me.input.bindKey(me.input.KEY.F4, "F4", true);
 		me.input.bindKey(me.input.KEY.F5, "F5", true);
 		me.input.bindKey(me.input.KEY.F6, "F6", true);
+		//calling function for text on buy screen
 		this.setBuyText();
 	},
 
@@ -188,12 +190,11 @@ game.SpendGold = Object.extend({
 
 			//draw is passing renderer
 			//this is the text that shows up
-			//numbers fix placement of text
-			//cost multiplies your level by ten
 			draw: function(renderer){
 				this.font.draw(renderer.getContext(), "Press F1-F6 TO BUY, B TO EXIT", this.pos.x, this.pos.y);
 			}	
 		}));
+		//adds text
 		me.game.world.addChild(game.data.buytext, 35);
 	},
 
@@ -206,12 +207,14 @@ game.SpendGold = Object.extend({
 		game.data.player.body.setVelocity(game.data.playerMoveSpeed, 20);
 		//removes screen
 		me.game.world.removeChild(game.data.buyscreen);
+		//unbinding keys so you cant randomly buy things with the screen not up
 		me.input.unbindKey(me.input.KEY.F1, "F1", true);
 		me.input.unbindKey(me.input.KEY.F2, "F2", true);
 		me.input.unbindKey(me.input.KEY.F3, "F3", true);
 		me.input.unbindKey(me.input.KEY.F4, "F4", true);
 		me.input.unbindKey(me.input.KEY.F5, "F5", true);
 		me.input.unbindKey(me.input.KEY.F6, "F6", true);
+		//removes text
 		me.game.world.removeChild(game.data.buytext);
 	}
 });
