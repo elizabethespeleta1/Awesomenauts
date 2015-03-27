@@ -50,7 +50,8 @@ var game = {
 		win: "",
 		//for buy screen when paused
 		PausePos: "",
-		buyscreen: ""
+		buyscreen: "",
+		buytext: "",
 	},
 	
 	
