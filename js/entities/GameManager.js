@@ -227,7 +227,9 @@ game.SpendGold = Object.extend({
 	},
 
 	checkBuyKeys: function(){
+		//checking what keys your pressing
 		if(me.input.isKeyPressed("F1")){
+			//if its true it calls another function
 			if(this.checkCost(1)){
 				this.makePurchase(1);
 			}
@@ -259,7 +261,9 @@ game.SpendGold = Object.extend({
 		}
 	},
 
+	//seeing if you have enough to buy a skill / ability
 	checkCost: function(skill){
+		//checking if correct skill && if you have enough gold  
 		if(skill1===1 && (game.data.gold >= ((game.data.skill1 + 1)*10))){
 			return true;
 		}
@@ -279,14 +283,20 @@ game.SpendGold = Object.extend({
 			return true;
 		}
 		else{
+			//returns false if you dont have enough
 			return false;
 		}
 	},
 
+	//
 	makePurchase: function(skill){
+		//works only if skill is 1
 		if(skill === 1){
+			//subtract gold that it costs
 		 	game.data.gold -= ((game.data.skill1 +1)*10);
+			//increase the skill
 			game.data.skill1 += 1;
+			//increases skill, aka the attack
 			game.data.player.attack +=1;
 		}
 		else if(skill === 2){
