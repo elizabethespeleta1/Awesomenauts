@@ -1,3 +1,4 @@
+//for loading profile screen
 game.LoadProfile = me.ScreenObject.extend({
 	/**	
 	 *  action to perform on state change
@@ -18,6 +19,7 @@ game.LoadProfile = me.ScreenObject.extend({
 		me.game.world.addChild(new (me.Renderable.extend({
 			init: function(){
 				//super class is passing the renderable the placement of the text
+				//adds text on screen
 				this._super(me.Renderable, 'init', [10, 10, 300, 50]);
 				this.font = new me.Font("Arial", 26, "white");
 			},

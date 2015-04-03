@@ -35,7 +35,7 @@ game.TitleScreen = me.ScreenObject.extend({
 				//makes sure your not listening for a click later in the game
 				//getting rid of old variables
 				me.input.releasePointerEvent('pointerdown', this);
-				//starting the game
+				//going to make a new profile screen
 				me.state.change(me.state.NEW);
 			}
 		})));
@@ -66,11 +66,8 @@ game.TitleScreen = me.ScreenObject.extend({
 			newGame: function(){
 				//save the experience from the last game
 				//makes sure your not listening for a click later in the game
-				
 				me.input.releasePointerEvent('pointerdown', this);
-
-
-				//continueing the game
+				//going to sign in screen aka load profile screen
 				me.state.change(me.state.LOAD);
 			}
 		})));

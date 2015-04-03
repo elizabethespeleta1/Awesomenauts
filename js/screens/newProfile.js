@@ -1,3 +1,4 @@
+//for making user screen
 game.NewProfile = me.ScreenObject.extend({
 	/**	
 	 *  action to perform on state change
@@ -7,7 +8,7 @@ game.NewProfile = me.ScreenObject.extend({
 		//-10 puts in the back (its the z layer)
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('new-screen')), -10); // TODO
 
-		//subscribing to events / binding keys
+		//unbinding keys
 		me.input.unbindKey(me.input.KEY.B);
 		me.input.unbindKey(me.input.KEY.Q);
 		me.input.unbindKey(me.input.KEY.E);
@@ -18,6 +19,7 @@ game.NewProfile = me.ScreenObject.extend({
 		me.game.world.addChild(new (me.Renderable.extend({
 			init: function(){
 				//super class is passing the renderable the placement of the text
+				//adds text on screen
 				this._super(me.Renderable, 'init', [10, 10, 300, 50]);
 				this.font = new me.Font("Arial", 26, "white");
 			},
