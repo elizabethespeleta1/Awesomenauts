@@ -1,6 +1,3 @@
-//class for all the timers
-//not an entity wont show up on the screen
-
 //for experience at the end
 game.ExperienceManager = Object.extend({
 	init: function(x,y,settings){
