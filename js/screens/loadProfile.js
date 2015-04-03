@@ -7,7 +7,9 @@ game.LoadProfile = me.ScreenObject.extend({
 		//this is putting the menu screen
 		//-10 puts in the back (its the z layer)
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('load-screen')), -10); // TODO
-				document.getElementById("input").style.visibility = "visible";
+		
+		//makes div boxes visible
+		document.getElementById("input").style.visibility = "visible";
 		document.getElementById("load").style.visibility = "visible";
 
 		//subscribing to events / binding keys
@@ -42,6 +44,7 @@ game.LoadProfile = me.ScreenObject.extend({
 	 *  action to perform when leaving this screen (state change)
 	 */
 	onDestroyEvent: function() {
+		//puts div boxes back to invisible
 		document.getElementById("input").style.visibility = "hidden";
 		document.getElementById("load").style.visibility = "hidden";
 	}

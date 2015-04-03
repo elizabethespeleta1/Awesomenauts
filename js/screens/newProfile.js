@@ -8,6 +8,7 @@ game.NewProfile = me.ScreenObject.extend({
 		//-10 puts in the back (its the z layer)
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('new-screen')), -10); // TODO
 
+		//makes these div boxes visible
 		document.getElementById("input").style.visibility = "visible";
 		document.getElementById("register").style.visibility = "visible";
 
@@ -43,6 +44,7 @@ game.NewProfile = me.ScreenObject.extend({
 	 *  action to perform when leaving this screen (state change)
 	 */
 	onDestroyEvent: function() {
+		//puts div boxes back to hidden
 		document.getElementById("input").style.visibility = "hidden";
 		document.getElementById("register").style.visibility = "hidden";		
 	}
