@@ -63,6 +63,7 @@ var game = {
 	
 	// Run on page load.
 	"onload" : function () {
+		
 	// Initialize the video.
 	if (!me.video.init("screen",  me.video.CANVAS, 1067, 600, true, '1.0')) {
 		alert("Your browser does not support HTML5 canvas.");
@@ -75,8 +76,6 @@ var game = {
 			me.plugin.register.defer(this, debugPanel, "debug");
 		});
 	}
-
-	me.save.add({exp:0, exp1:0, exp2:0, exp3:0, exp4:0});
 
 	//variable that represents the screen
 	me.state.SPENDEXP = 112;
