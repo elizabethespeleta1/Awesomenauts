@@ -28,6 +28,7 @@
 		//not null so cant be empty
 		. "salt char(128) NOT NULL,"
 
+		//setting the limit for the digits at 4
 		. "exp int(4),"
 		. "exp1 int(4),"
 		. "exp2 int(4),"
