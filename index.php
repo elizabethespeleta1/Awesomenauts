@@ -36,7 +36,7 @@
 
 			<div class='password'>
 				<label for="password"> Password </label>
-				<input type='text' name='password' id='password' autocomplete='off'>
+				<input type='password' name='password' id='password' autocomplete='off'>
 			</div>
 
 			<button type='button' id='register'> Register </button>
@@ -128,6 +128,40 @@
 						//else it'll tell you the response
 						else{
 							alert(response);
+						}
+					})
+				//tells you if you failed
+					.fail(function(response){
+						alert("Fail");
+					});
+			});
+
+			$("#load").bind("click", function(){
+				$.ajax({
+					type: "POST",
+					url: "php/controller/login-user.php",
+					data: {
+						//passing as a username and password
+						username: $('#username').val(),
+						password: $('#password').val()
+					},
+					dataType: "text"
+				})
+				//if it does what its supposed to this runs
+					.success(function(response){
+						//if true runs the game
+						if(response === "Invalid username and password"){
+							alert(response);
+						}
+						//else it'll tell you the response
+						else{
+							var data = jQuery.parseJSON(response);
+							game.data.exp = data["exp"];
+							game.data.exp1 = data["exp1"];
+							game.data.exp2 = data["exp2"];
+							game.data.exp3 = data["exp3"];
+							game.data.exp4 = data["exp4"];
+							me.state.change(me.state.SPENDEXP);
 						}
 					})
 				//tells you if you failed

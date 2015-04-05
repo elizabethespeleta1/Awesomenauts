@@ -64,11 +64,11 @@
 			}
 			//runs if the password is invalid
 			else{
-				echo "<p>Invalid username and password</p>";
+				echo "Invalid username and password";
 			}
 
 	}
 	//runs rif the query fails or retrieve username
 	else{
-		echo "<p> Invalid username and password </p>";
+		echo "Invalid username and password";
 	}
