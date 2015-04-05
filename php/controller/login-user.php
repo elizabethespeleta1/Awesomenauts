@@ -2,6 +2,8 @@
 	//need to require the config file because thats where the database object is made 
 	require_once(__DIR__ . "/../model/config.php");
 
+	//array is a series of objects 
+	//this is an array
 	$ajax = array(
 		'exp' => '',
 		'exp1' => '',
@@ -25,7 +27,7 @@
 	//using session variable because thats where the database connection is being stored
 	//running a query on the database
 	//retrieving  info from database using select
-	//selecting salt password from the users table
+	//selecting all from table
 	//selecting from the username
 	$query = $_SESSION["connection"]->query("SELECT * FROM users WHERE username = '$username'");
 
@@ -46,12 +48,15 @@
 				//this is an array of values
 				//to make the user authenticated / logged in
 				$_SESSION["authenticated"] = true;
+
+				//taking exp from row it was loaded from
 				$array["exp"] = $row["exp"];
 				$array["exp1"] = $row["exp1"];
 				$array["exp2"] = $row["exp2"];
 				$array["exp3"] = $row["exp3"];
 				$array["exp4"] = $row["exp4"];
 
+				//echoing this array as one javascript object
 				echo json_encode($array);
 			}
 			//runs if the password is invalid

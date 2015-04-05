@@ -29,14 +29,17 @@
 		. "username = '$username',"
 		. "password = '$hashedPassword',"
 		. "salt = '$salt',"
+		. "exp = 0,"
 		. "exp1 = 0,"
 		. "exp2 = 0,"
 		. "exp3 = 0,"
 		. "exp4 = 0");
 
+	//session name (variable) for username
 	$_SESSION["name"] = $username;
 
-	if($query){ 
+	if($query){
+	//need this for ajax  on index.php 
 		echo "true";
 	}
 	else{
