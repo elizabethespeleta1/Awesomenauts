@@ -2,6 +2,7 @@
 <!DOCTYPE HTML>
 
 <?php
+//getting the create-db file
 	 require_once ("php/controller/create-db.php");
 ?>
 
@@ -99,27 +100,37 @@
 		</script>
 
 		<script>
+			//when you click on menu takes you back to the main menu
 			$("$mainmenu").bind("click", function(){
 				me.state.change(me.state.MENU);
 			});
+
+			//allows you to register
+			//when you click on register its gonna take your info to the create-db file
+			//and the info is gonna be passed into the data
 			$("$register").bind("click", function(){
 				$.ajax({
 					type: "POST",
 					url: "php/controller/create-user.php",
 					data: {
+						//passing as a username and password
 						username: $('#username').val(),
 						password: $('#password').val()
 					},
 					dataType: "text"
 				})
+				//if it does what its supposed to this runs
 					.success(function(response){
+						//if true runs the game
 						if(response === "true"){
 							me.state.change(me.state.PLAY);
 						}
+						//else it'll tell you the response
 						else{
 							alert(response);
 						}
 					})
+				//tells you if you failed
 					.fail(function(response){
 						alert("Fail");
 					});
