@@ -20,6 +20,8 @@
 		//30 is the max characters of the username
 		//its null so you cant have a blank username
 		. "username varchar(30) NOT NULL,"
+
+		. "email varchar(50) NOT NULL,"
 		//for the password
 		//not null so this value gets set and cant be blank
 		//if its blank there will be an error
@@ -41,7 +43,7 @@
 	//if statement is to check somethings wronng
 	//checking if query is true
 	if($query){
-		echo "<p> Successfully created table: users</p>";
+		echo "<p> Successfully created users table</p>";
 	}
 	else{
 		echo "<p". $_SESSION["connection"]->error .  "</p>";
