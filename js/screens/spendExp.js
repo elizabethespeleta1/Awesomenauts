@@ -16,6 +16,7 @@ game.SpendExp = me.ScreenObject.extend({
 		me.input.bindKey(me.input.KEY.F5, "F5");
 
 		//variable for exp cost = level * 10
+		//number is there to treat exp1 as a number
 		var exp1cost = ((Number(game.data.exp1) + 1) * 10);
 
 		//adding text to the load screen

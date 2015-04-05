@@ -10,12 +10,14 @@ game.ExperienceManager = Object.extend({
 		//runs if you win and if the game isnt over
 		if(game.data.win ===true && !this.gameover){
 			//runs gameOver sending the parameter true
+			//gives you an alert if you win
 			this.gameOver(true);
 			alert ("YOU WIN!");
 		}
 		//runs if you lose and if the game isnt over
 		else if (game.data.win === false&& !this.gameover){
 			//runs gameOver sending the parameter false
+			//gives you an alert that says you lose
 			this.gameOver(false);
 			alert("YOU LOSE!");
 		}
@@ -39,11 +41,13 @@ game.ExperienceManager = Object.extend({
 		me.save.exp = game.data.exp;
 		console.log("experience is: " + me.save.exp);
 
-		
+		//handles saving
 				$.ajax({
 					type: "POST",
 					url: "php/controller/save-user.php",
 					data: {
+						//passing in data aka game variables aka exp
+						//gonna filter and save this info
 						exp: game.data.exp,
 						exp1: game.data.exp1,
 						exp2: game.data.exp2,
@@ -54,7 +58,7 @@ game.ExperienceManager = Object.extend({
 				})
 				//if it does what its supposed to this runs
 					.success(function(response){
-						//if true runs the game
+						//if true takes you to the menu
 						if(response === "true"){
 							me.state.change(me.state.MENU);
 						}
