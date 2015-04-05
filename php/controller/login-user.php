@@ -56,6 +56,9 @@
 				$array["exp3"] = $row["exp3"];
 				$array["exp4"] = $row["exp4"];
 
+				//session name (variable) for username
+				$_SESSION["name"] = $username;
+
 				//echoing this array as one javascript object
 				echo json_encode($array);
 			}
