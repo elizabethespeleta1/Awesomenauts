@@ -34,6 +34,7 @@
 				<input type='text' name='username' id='username' autocomplete='off'>
 			</div>
 
+			<!--putting password as the type makes it  not visible -->
 			<div class='password'>
 				<label for="password"> Password </label>
 				<input type='password' name='password' id='password' autocomplete='off'>
@@ -136,6 +137,8 @@
 					});
 			});
 
+			//when you click on load this runs
+			//lets you login
 			$("#load").bind("click", function(){
 				$.ajax({
 					type: "POST",
@@ -147,14 +150,16 @@
 					},
 					dataType: "text"
 				})
-				//if it does what its supposed to this runs
+				//if it doesnt do what its supposed to this runs
 					.success(function(response){
-						//if true runs the game
+						//if it isnt true tells you the response
 						if(response === "Invalid username and password"){
 							alert(response);
 						}
-						//else it'll tell you the response
+						//if it works it takes you to the spend exp screen
 						else{
+							//variable that uses the JSON
+							//filling in the game variables also
 							var data = jQuery.parseJSON(response);
 							game.data.exp = data["exp"];
 							game.data.exp1 = data["exp1"];
