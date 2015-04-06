@@ -6,6 +6,8 @@ var game = {
 	data : {
 		// variable for the score
 		score : 0,
+		option1: "",
+		option2: "",
 		// variable for the enemy base health
 		enemyBaseHealth : 1,
 		// variable for the player base health
