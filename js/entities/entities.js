@@ -43,7 +43,7 @@ game.PlayerEntity = me.Entity.extend({
 		//this keeps track of time
 		this.now = new Date().getTime();
 		this.lastHit = this.now;
-
+		this.lastSpear = this.now;
 		//this allows you to have a hit delay
 		this.lastAttack = new Date().getTime();
 	},
@@ -90,6 +90,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.now = new Date().getTime();
 		this.dead = this.checkIfDead();
 		this.checkKeyPressesAndMove();
+		this.checkAbilityKeys();
 		this.setAnimation();
 
 		//sets up the collsions
@@ -161,6 +162,29 @@ game.PlayerEntity = me.Entity.extend({
 		//if it runs you can jump
 		this.body.jumping = true;
 		this.body.vel.y -= this.body.accel.y * me.timer.tick;
+	},
+
+	checkAbilityKeys: function(){
+		if(me.input.isKeyPressed("skill1")){
+			//this.speedBurst();
+		}
+		else if(me.input.isKeyPressed("skill2")){
+			//this.eatCreep();
+		}
+		else if(me.input.isKeyPressed("skill3")){
+			throwSpear();
+		}
+	},
+
+	throwSpear: function(){ 
+		if(this.lastSpear>= game.data.spearTimer && game.data.ability3 >=0){
+		//update last creep time
+	 	this.lastSpear = this.now;
+	 	//building a creep 
+	 	var spear = me.pool.pull("spear", this.pos.x, this.pos.y, {});
+	 	//adding creeps to the world
+	 	me.game.world.addChild(spear, 10);
+		}
 	},
 
 	//function for setting animation

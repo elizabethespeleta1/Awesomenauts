@@ -38,6 +38,7 @@ var game = {
 		//help keep track of these 
 		gameTimerManager: "",
 		HeroDeathManager: "",
+		spearTimer: 15,
 		player: "",
 
 		//starts experience and gold at 0
@@ -109,6 +110,7 @@ var game = {
 		me.pool.register("HeroDeathManager", game.HeroDeathManager);
 		me.pool.register("ExperienceManager", game.ExperienceManager);
 		me.pool.register("SpendGold", game.SpendGold);
+		me.pool.register("spear", game.SpearThrow);
 
 		//setting screens
 		me.state.set(me.state.MENU, new game.TitleScreen());
