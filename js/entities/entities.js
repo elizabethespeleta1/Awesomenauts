@@ -165,6 +165,7 @@ game.PlayerEntity = me.Entity.extend({
 	},
 
 	checkAbilityKeys: function(){
+		//checking which keys are pressed
 		if(me.input.isKeyPressed("skill1")){
 			//this.speedBurst();
 		}
@@ -176,13 +177,16 @@ game.PlayerEntity = me.Entity.extend({
 		}
 	},
 
+	//allows you to throw spear
 	throwSpear: function(){ 
+		//checking the timer (can only throw it every 15 sec), 
+		//checking if theres actual skills
 		if(this.lastSpear>= game.data.spearTimer && game.data.ability3 >=0){
-		//update last creep time
+		//update last spear time
 	 	this.lastSpear = this.now;
-	 	//building a creep 
+	 	//building a spear and its position
 	 	var spear = me.pool.pull("spear", this.pos.x, this.pos.y, {});
-	 	//adding creeps to the world
+	 	//adding spears to the world depth is 10
 	 	me.game.world.addChild(spear, 10);
 		}
 	},
