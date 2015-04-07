@@ -181,7 +181,7 @@ game.PlayerEntity = me.Entity.extend({
 	throwSpear: function(){ 
 		//checking the timer (can only throw it every 15 sec), 
 		//checking if theres actual skills
-		if((this.now-this.lastSpear)>= game.data.spearTimer*1000 && game.data.ability3 >0)
+		if((this.now-this.lastSpear)>= game.data.spearTimer*1000 && game.data.ability3 >0){
 		//update last spear time
 	 	this.lastSpear = this.now;
 	 	//building a spear and its position
@@ -191,7 +191,7 @@ game.PlayerEntity = me.Entity.extend({
 		}
 	},
 
-	//function for setting animation
+	//function  for setting animation
 	setAnimation: function(){
 		//checking if attack is pressed
 		if(this.attacking){
