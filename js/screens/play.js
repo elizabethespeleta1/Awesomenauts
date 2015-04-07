@@ -7,6 +7,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		//me.levelDirector tells it what its looking at
 		// loadLevel loads the level
 		game.data.score = 0;
+		game.data.win = "";
 		me.levelDirector.loadLevel("level01");
 		console.log(game.data.exp);
 		console.log(game.data.exp2);

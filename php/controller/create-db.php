@@ -21,7 +21,7 @@
 		//its null so you cant have a blank username
 		. "username varchar(30) NOT NULL,"
 
-		. "email varchar(50) NOT NULL,"
+		//. "email varchar(50) NOT NULL,"
 		//for the password
 		//not null so this value gets set and cant be blank
 		//if its blank there will be an error

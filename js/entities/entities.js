@@ -181,11 +181,11 @@ game.PlayerEntity = me.Entity.extend({
 	throwSpear: function(){ 
 		//checking the timer (can only throw it every 15 sec), 
 		//checking if theres actual skills
-		if(this.lastSpear>= game.data.spearTimer && game.data.ability3 >=0){
+		if((this.now-this.lastSpear)>= game.data.spearTimer*1000 && game.data.ability3 >0)
 		//update last spear time
 	 	this.lastSpear = this.now;
 	 	//building a spear and its position
-	 	var spear = me.pool.pull("spear", this.pos.x, this.pos.y, {});
+	 	var spear = me.pool.pull("spear", this.pos.x, this.pos.y, {}, this.facing);
 	 	//adding spears to the world depth is 10
 	 	me.game.world.addChild(spear, 10);
 		}

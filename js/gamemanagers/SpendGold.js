@@ -87,7 +87,7 @@ game.SpendGold = Object.extend({
 				this.font.draw(renderer.getContext(), "Skill 3: Increase Health. Current Level: " + game.data.skill3 + " Cost: " + ((game.data.skill3 + 1)*10), this.pos.x, this.pos.y + 120 );
 				this.font.draw(renderer.getContext(), "Q Ability: Speed Burst. Current Level: " + game.data.ability1 + " Cost: " + ((game.data.ability1 + 1)*10), this.pos.x, this.pos.y + 160);
 				this.font.draw(renderer.getContext(), "W: Ability: Eat your creep for health. Current Level: "+ game.data.ability2 + " Cost: " + ((game.data.ability2 + 1)*10), this.pos.x, this.pos.y + 200);
-				this.font.draw(renderer.getContext(), "B Ability: Throw your spear. Current Level: " + game.data.ability3 + " Cost: " + ((game.data.ability3 + 1)*10), this.pos.x, this.pos.y + 240);
+				this.font.draw(renderer.getContext(), "E Ability: Throw your spear. Current Level: " + game.data.ability3 + " Cost: " + ((game.data.ability3 + 1)*10), this.pos.x, this.pos.y + 240);
 			}	
 		}));
 		//adds text
@@ -161,13 +161,13 @@ game.SpendGold = Object.extend({
 		else if(skill3===3 && (game.data.gold >= ((game.data.skill3 + 1)*10))){
 			return true;
 		}
-		else if(skill4===4 && (game.data.gold >= ((game.data.ability1 + 1)*10))){
+		else if(ability1===4 && (game.data.gold >= ((game.data.ability1 + 1)*10))){
 			return true;
 		}
-		else if(skill5===5 && (game.data.gold >= ((game.data.ability2 + 1)*10))){
+		else if(ability2===5 && (game.data.gold >= ((game.data.ability2 + 1)*10))){
 			return true;
 		}
-		else if(skill6===6 && (game.data.gold >= ((game.data.ability3 + 1)*10))){
+		else if(ability3===6 && (game.data.gold >= ((game.data.ability3 + 1)*10))){
 			return true;
 		}
 		else{

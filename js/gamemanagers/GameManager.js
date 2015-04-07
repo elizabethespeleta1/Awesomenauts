@@ -8,14 +8,14 @@ game.ExperienceManager = Object.extend({
 
 	update:function(){
 		//runs if you win and if the game isnt over
-		if(game.data.win ===true && !this.gameover){
+		if(game.data.win === true && !this.gameover){
 			//runs gameOver sending the parameter true
 			//gives you an alert if you win
 			this.gameOver(true);
 			alert ("YOU WIN!");
 		}
 		//runs if you lose and if the game isnt over
-		else if (game.data.win === false&& !this.gameover){
+		else if (game.data.win === false && !this.gameover){
 			//runs gameOver sending the parameter false
 			//gives you an alert that says you lose
 			this.gameOver(false);
@@ -39,7 +39,7 @@ game.ExperienceManager = Object.extend({
 		//saves experience
 		this.gameover = true;
 		me.save.exp = game.data.exp;
-		console.log("experience is: " + me.save.exp);
+		console.log("experience is: " + game.data.exp);
 
 		//handles saving
 				$.ajax({

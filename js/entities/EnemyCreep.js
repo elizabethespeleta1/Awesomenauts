@@ -43,8 +43,6 @@ game.EnemyCreep = me.Entity.extend({
 	},
 
 	update: function(delta){
-		
-
 		//when the health = 0 (dead) this runs
 		if(this.health<=0){
 			//removes creep when its dead
@@ -66,6 +64,7 @@ game.EnemyCreep = me.Entity.extend({
 		//calling the super
 		//updating and returning
 		this._super(me.Entity, "update", [delta]);
+		
 	},
 
 	//a function with the parameter response
