@@ -181,6 +181,7 @@ game.PlayerEntity = me.Entity.extend({
 	throwSpear: function(){ 
 		//checking the timer (can only throw it every 15 sec), 
 		//checking if theres actual skills
+		//checking the last time a spear was thrown
 		if((this.now-this.lastSpear)>= game.data.spearTimer*1000 && game.data.ability3 >0){
 		//update last spear time
 	 	this.lastSpear = this.now;
