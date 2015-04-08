@@ -1,48 +1,49 @@
+//removes the player and resets him if he dies
+//adds gold
+//manages creeps
 game.GameTimerManager = Object.extend({
-	//constructor function
-	 init: function (x, y, settings){
-	 	//for time
-	 	this.now = new Date().getTime;
-	 	//last time made a creep happen
-	 	this.lastCreep = new Date().getTime();
-	 	//variable for pausing game 
-	 	this.paused = false;
-	 	//so it constantly updates
-	 	this.alwaysUpdate = true;
-	 },
+	init: function(x, y, settings){
+		//for time
+		this.now = new Date().getTime();
+		//updates creep time
+		this.lastCreep = new Date().getTime();
+		//creepe cannot pause at all
+		this.paused = false;
+		//always updates
+		this.alwaysUpdate = true;
+	},
 
-	 update: function(){
-	 	//keeping track of time
-	 	this.now = new Date().getTime();
-	 	this.goldTimerCheck();
-	 	this.creepTimerCheck();
+	update: function(){
+		//time is now
+		this.now = new Date().getTime();
+		this.goldTimerCheck();
+		this.creepTimerCheck();
 
-	 	return true;
-	 },
+		return true;
+	},
+	//organizes code above
+	goldTimerCheck: function(){
+		//controls when the creep spons
+		if(Math.round(this.now/1000)%20 ===0 && (this.now - this.lastCreep >= 1000)){
+			game.data.gold += (game.data.exp1+1);
+			console.log("Current gold: " + game.data.gold);
 
-	 goldTimerCheck: function(){
-	 	//does it every 20 seconds and makes sure it doesnt happen all the time (this.now - this.lastCreep)
-	 	//only get gold every other creep
-	 	if(Math.round(this.now/1000)%20 ===0 && (this.now - this.lastCreep >= 1000)){
-	 		//increases gold by exp
-	 		game.data.gold += 1;
-	 		//keep track of gold
-	 		console.log("Current gold: " + game.data.gold);
-	 	} 
-	 },
+		}
+	},
+	creepTimerCheck: function(){
+		//controls when the creep spons
+		if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){
+			//controls when the creep spons
+			this.lastCreep = this.now;
+			//bulids a creep and puts it into the world
+			var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
+			me.game.world.addChild(creepe, 5);
 
-	 creepTimerCheck: function(){
-	 	//keeping track if you need creeps
-	 	//math.round checks and makes sure that you have amultiple of ten
-	 	//checking to be a sec  % checks if you have a multiple of ten 
-	 	//and checking if you spawn over and over again
-	 	if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){
-	 		//update last creep time
-	 		this.lastCreep = this.now;
-	 		//building a creep 
-	 		var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
-	 		//adding creeps to the world
-	 		me.game.world.addChild(creepe, 5);
-	 	}
-	 }
+			var gloop = me.pool.pull("Player2", 200, 0 , {});
+			me.game.world.addChild(gloop, 5);
+
+			var creep2 = me.pool.pull("EnemyHero", 1000, 100 , {});
+			me.game.world.addChild(creep2, 5);
+		}
+	}
 });

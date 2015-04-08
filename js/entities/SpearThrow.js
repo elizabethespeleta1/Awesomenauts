@@ -1,59 +1,58 @@
 game.SpearThrow = me.Entity.extend({
-	init: function(x,y, settings, facing){
+	init: function(x, y, settings, facing){
 		this._super(me.Entity, 'init', [x, y, {
+			//loads our image creep 1 from our resources folder
 			image: "spear",
 			width: 48,
 			height: 48,
 			spritewidth: "48",
 			spriteheight: "48",
 			getShape: function(){
-				return (new me.Rect(0,0,48,48)).toPolygon();
+				return (new me.Rect(0, 0, 48, 48)).toPolygon();
 			}
 		}]);
-		//always update so spear moves even when not on the screen
+		//updates the enemy creep
 		this.alwaysUpdate = true;
-		//want the spear to go fast
-		this.body.setVelocity(8,0);
-		//this is where the levels matter for the spear
-		//if ability is at level 2 it's strength is at 6
+		//sets veloctiy
+		this.body.setVelocity(8, 0);
 		this.attack = game.data.ability3*3;
-		//type is spear
 		this.type = "spear";
-		//checks where your facing
-		this.facing = facing;
+		this.facing = facing
 	},
+
 	update: function(delta){
-		//checking if facing the left
-		if(this.facing === 'left'){
-			//makes the spear move
-			this.body.vel.x -= this.body.accel.x * me.timer.tick;
-		}
-		else {
-			//if not it'll go the other way
-			this.body.vel.x += this.body.accel.x * me.timer.tick;
-		}
-		//checking for collsions for the spear if it doesnt then it
-		//passes it to the collide handler
+		if(this.facing === "left"){
+		//has player accelerate
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+	}else{
+		this.body.vel.x += this.body.accel.x * me.timer.tick;
+	}
+
+		//checks for collisions with our player
+		//if there are collisions it passes it to collide handler
 		me.collision.check(this, true, this.collideHandler.bind(this), true);
 
-		//then it updates delta (the time)
 		this.body.update(delta);
 
-		//calling the super
-		//updating and returning
 		this._super(me.Entity, "update", [delta]);
-		return true;
-		
-	}, 
 
-	//a function with the parameter response
-	collideHandler : function(response){
-		//affects only the enemy base or enemy creep
-		if(response.b.type==='EnemyBase' || response.b.type==='EnemyCreep'){
-			//causes it to lose base
-			response.b.loseHealth(this.attack);
-			//removes spear
-			me.game.world.removeChild(this);
+		return true;
+	},
+
+	//handels collisons with the player
+	//any lines of code that deal with the collisions above get sent down here and passed through
+	collideHandler: function(response) {
+		//some simple code to start it off
+		//shows what we are colliding with
+		if(response.b.type === 'EnemyBase' || response.b.type === 'EnemyCreep') {
+				//makes the player base call its loose health function and passes it at a
+				//damage of 1
+				//a function that causes the player to loose some health
+				//uses the global variable that helps the player loose health
+				//variable located in game.js
+				response.b.loseHealth(this.attack);
+				me.game.world.removeChild(this);
+			}
 		}
-	}
-})
+
+});

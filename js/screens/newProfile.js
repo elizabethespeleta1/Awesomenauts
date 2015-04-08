@@ -1,4 +1,3 @@
-//for making user screen
 game.NewProfile = me.ScreenObject.extend({
 	/**	
 	 *  action to perform on state change
@@ -11,14 +10,15 @@ game.NewProfile = me.ScreenObject.extend({
 		//makes these div boxes visible
 		document.getElementById("input").style.visibility = "visible";
 		document.getElementById("register").style.visibility = "visible";
+		
 
-		//unbinding keys
-		me.input.unbindKey(me.input.KEY.B);
-		me.input.unbindKey(me.input.KEY.Q);
-		me.input.unbindKey(me.input.KEY.E);
-		me.input.unbindKey(me.input.KEY.W);
-		me.input.unbindKey(me.input.KEY.A);
-
+	    //unbinding keys
+	    me.input.unbindKey(me.input.KEY.B);
+	    me.input.unbindKey(me.input.KEY.Q);
+	    me.input.unbindKey(me.input.KEY.E);
+	    me.input.unbindKey(me.input.KEY.W);
+	    me.input.unbindKey(me.input.KEY.A);
+	
 		//adding text to the load screen
 		me.game.world.addChild(new (me.Renderable.extend({
 			init: function(){
@@ -26,6 +26,7 @@ game.NewProfile = me.ScreenObject.extend({
 				//adds text on screen
 				this._super(me.Renderable, 'init', [10, 10, 300, 50]);
 				this.font = new me.Font("Arial", 26, "white");
+				//me.input.registerPointerEvent('pointerdown', this, this.newGame.bind(this), true);
 			},
 
 			//draw is passing renderer
@@ -33,10 +34,12 @@ game.NewProfile = me.ScreenObject.extend({
 			//numbers fix placement of text
 			//cost multiplies your level by ten
 			draw: function(renderer){
-				this.font.draw(renderer.getContext(), "Pick a username and a password", this.pos.x, this.pos.y);
-			}	
-		})));
+				this.font.draw(renderer.getContext(), "PICK A USERNAME AND PASSWORD", this.pos.x, this.pos.y);
+			}
 
+		})));
+	
+		
 	},
 	
 	
@@ -44,8 +47,8 @@ game.NewProfile = me.ScreenObject.extend({
 	 *  action to perform when leaving this screen (state change)
 	 */
 	onDestroyEvent: function() {
-		//puts div boxes back to hidden
+		////puts div boxes back to hidden
 		document.getElementById("input").style.visibility = "hidden";
-		document.getElementById("register").style.visibility = "hidden";		
+		document.getElementById("register").style.visibility = "hidden";
 	}
 });

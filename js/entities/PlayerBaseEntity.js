@@ -1,66 +1,55 @@
-//this is a class
-//making a constructor with ._super
-//setting the picture and size
-//getShape is returning a rectangle
-//toPolygon is there so you can use it
+//loads the player base from melon js
 game.PlayerBaseEntity = me.Entity.extend({
-	init : function (x, y, settings){
+	init : function(x, y, settings){
 		this._super(me.Entity, 'init', [x, y, {
-			image : "tower",
-			width : 100,
-			height : 100,
-			spritewidth : "100",
-			spriteheight : "100",
+			image: "tower",
+			width: 100,
+			height: 100,
+			spritewidth: "100",
+			spriteheight: "100",
 			getShape: function(){
-				return (new me.Rect (0, 0, 70, 70)).toPolygon();
+				return (new me.Rect(0, 0, 100, 70)).toPolygon();
 			}
 		}]);
-		//this variable is saying the tower isnt broken
+		//tells us the tower has not been destroyed
 		this.broken = false;
-		//this variable is setting the health using the variable made in game.js playerBaseHealth
+		//gives the tower a health
+		//uses the global variable that helps the player base loose health
+		//variable located in game.js
 		this.health = game.data.playerBaseHealth;
-		//this variable is saying it'll always update whether or not your looking at it
+		//even if we cannot see the screen it will still update
 		this.alwaysUpdate = true;
-		//this variable is so if somebody runs into the tower you can collide with it
+		//if someone runs into the tower it will be able to collide
 		this.body.onCollision = this.onCollision.bind(this);
-		//the type allows you to use it when doing other collisions and you can check what your running into
-		this.type = "PlayerBase";
 
-		//0 because is the not burning animation
-		//1 is another animation
-		//this.renderable.setCurrentAnimation("idle"); sets the animation when the tower is broken
+		//type that can be used later during other collisons
+		this.type = "PlayerBase";
+		//adds animation to the tower
 		this.renderable.addAnimation("idle", [0]);
 		this.renderable.addAnimation("broken", [1]);
 		this.renderable.setCurrentAnimation("idle");
 	},
 
-
-	update:function(delta) {
-		//this runs when the health is less than or equal to zero
+	update:function(delta){
+		// tells us to die if health is less than zero
 		if(this.health<=0){
-			//if its true your character is dead 
-			//if the your base breaks first , sets game to not won
-			//setting base to brokem
 			this.broken = true;
+			//if the player is dead he will not win
 			game.data.win = false;
 			this.renderable.setCurrentAnimation("broken");
 		}
-		//then it updates delta (the time)
 		this.body.update(delta);
 
-		//calling the super
-		//updating and returning
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	},
 
-	//this function makes your base lose health
+	//function for loosing health when attacking
 	loseHealth: function(damage){
-		//this makes your base lose health
 		this.health = this.health - damage;
+
 	},
 
-	//for colliding 
 	onCollision: function(){
 
 	}

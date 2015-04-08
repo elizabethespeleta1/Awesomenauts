@@ -1,19 +1,22 @@
+//manages the players death
+//oragnizes the code
 game.HeroDeathManager = Object.extend({
-	init: function (x, y , settings){
-		//so it constantly updates not over
+	//so it constantly updates not over
 		//setting the game to
-	 	this.alwaysUpdate = true;
-	 	this.gameover = false;
+	init: function(x, y, settings){
+		this.alwaysUpdate = true;
+
 	},
+
 	update: function(){
 		//removes player
-	 	if(game.data.player.dead){
-	 		//removes player when its dead
+		if(game.data.player.dead){
+			//removes player when its dead
 			me.game.world.removeChild(game.data.player);
+			me.game.world.removeChild(game.data.miniPlayer);
 			//this respawns the player in 10,0
-	 		me.state.current().resetPlayer(10, 0);
+			me.state.current().resetPlayer(10, 0);
 		}
-		//returns true
 		return true;
 	}
 });

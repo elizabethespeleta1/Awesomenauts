@@ -27,14 +27,16 @@
 	$query = $_SESSION["connection"]->query("INSERT INTO users SET "
 		//were setting the email username hashedPassword and salt
 		
+	//	. "email = '',"
 		. "username = '$username',"
 		. "password = '$hashedPassword',"
-		. "salt = '$salt',"
-		. "exp = 0,"
-		. "exp1 = 0,"
-		. "exp2 = 0,"
-		. "exp3 = 0,"
+		. "salt = '$salt', "
+		. "exp = 0, "
+		. "exp1 = 0, "
+		. "exp2 = 0, "
+		. "exp3 = 0, "
 		. "exp4 = 0");
+
 
 	//session name (variable) for username
 	$_SESSION["name"] = $username;

@@ -1,40 +1,42 @@
-//this is a class for the enemy base
-//almost the same the class above
+//loads the player base from melon js
 game.EnemyBaseEntity = me.Entity.extend({
-	init : function (x, y, settings){
+	init : function(x, y, settings){
 		this._super(me.Entity, 'init', [x, y, {
-			image : "tower",
-			width : 100,
-			height : 100,
-			spritewidth : "100",
-			spriteheight : "100",
+			image: "tower",
+			width: 100,
+			height: 100,
+			spritewidth: "100",
+			spriteheight: "100",
 			getShape: function(){
-				return (new me.Rect (0, 0, 70, 70)).toPolygon();
+				return (new me.Rect(0, 0, 100, 70)).toPolygon();
 			}
 		}]);
+		
+		//tells us the tower has not been destroyed
 		this.broken = false;
-		//can  change the enemyBaseHealth in game.js
+		//gives the tower a health
+		//uses the global variable that helps the base loose health in game.js
 		this.health = game.data.enemyBaseHealth;
+		//even if we cannot see the screen it will still update
 		this.alwaysUpdate = true;
+		//if someone runs into the tower it will be able to collide
 		this.body.onCollision = this.onCollision.bind(this);
 
+		//type that can be used later during other collisons
 		this.type = "EnemyBaseEntity";
 
-		//0 because is the not burning animation
-		//1 is another animation
-		//this.renderable.setCurrentAnimation("idle"); sets the animation when the tower is broken
+		//renderable used to set animaton
+		//sets the animation to the enemy base
 		this.renderable.addAnimation("idle", [0]);
 		this.renderable.addAnimation("broken", [1]);
 		this.renderable.setCurrentAnimation("idle");
-
 	},
 
-	update:function(delta) {
+	update:function(delta){
+		// tells us to die if health is less than zeron
 		if(this.health<=0){
-			//sets to base brokem
-			//if the enemy breaks first sets win to true
-			//setting base to broken
 			this.broken = true;
+			//if the enemy dies he will not win
 			game.data.win = true;
 			this.renderable.setCurrentAnimation("broken");
 		}
@@ -44,14 +46,12 @@ game.EnemyBaseEntity = me.Entity.extend({
 		return true;
 	},
 
-
 	onCollision: function(){
-
+		
 	},
 
-	//this function runs so you can lose health
 	loseHealth: function(){
-		//this makes your health go down one
+		//losses health
 		this.health--;
 	}
 
